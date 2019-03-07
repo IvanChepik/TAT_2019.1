@@ -5,25 +5,21 @@ namespace DEV_1
 {
     public class StringConverter
     {
-        public List<string> GetMaxUniqueSequences(string receivedString)
+        public IEnumerable<string> GetMaxUniqueSequences(string receivedString)
         {
-            StringBuilder maxUniqueSequence = new StringBuilder();
-            List<string> allMaxSequence = new List<string>();
-            for (int i = 0; i < receivedString.Length - 1; i++)
+            var maxUniqueSequence = new StringBuilder();
+            var allMaxSequence = new List<string>();
+            for (var index = 0; index < receivedString.Length; index++)
             {
-                maxUniqueSequence.Append(receivedString[i]);
-                if (receivedString[i] == receivedString[i + 1])
+                maxUniqueSequence.Append(receivedString[index]);
+                if ((receivedString.Length == index+1 || receivedString[index] == receivedString[index + 1]) &&
+                    maxUniqueSequence.Length > 1) 
                 {
                     allMaxSequence.Add(maxUniqueSequence.ToString());
                     maxUniqueSequence.Clear();
                 }
             }
-            if (maxUniqueSequence.Length != 0)
-            {
-                maxUniqueSequence.Append(receivedString[receivedString.Length - 1]);
-                allMaxSequence.Add(maxUniqueSequence.ToString());
-            }
-            allMaxSequence.RemoveAll(s => s.Length == 1);
+            
             return allMaxSequence;
         }
     }
