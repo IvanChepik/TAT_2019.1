@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DEV_1
 {
@@ -10,6 +6,11 @@ namespace DEV_1
     {
         static void Main(string[] args)
         {
+            StringConverter stringConverter = new StringConverter();
+            foreach(var value in stringConverter.GetMaxUniqueSequences("access"))
+            {
+                Console.WriteLine(value);
+            }           
         }
     }
 }
