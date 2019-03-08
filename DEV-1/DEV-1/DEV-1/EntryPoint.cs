@@ -7,8 +7,8 @@ namespace DEV_1
         static void Main(string[] args)
         {
             var stringConverter = new StringConverter();
-            var maxUniqueSequences = stringConverter.GetMaxUniqueSequences("accesserasdfgassfgadd");
-            foreach (var value in maxUniqueSequences)
+            var allUniqueSequences = stringConverter.GetAllUniqueSequences("access");           
+            foreach (var value in allUniqueSequences)
             {
                 Console.WriteLine(value);
             }
