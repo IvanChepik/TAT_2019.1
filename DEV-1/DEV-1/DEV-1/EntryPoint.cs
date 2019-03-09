@@ -29,10 +29,8 @@ namespace DEV_1
                 if (args[0].Length<2)
                 {
                     throw new ArgumentException("Argument length less than two");
-                }
-                var stringConverter = new StringConverter();
-                var allUniqueSequences = stringConverter.GetAllUniqueSequences(args[0]);
-                foreach (var sequence in allUniqueSequences)
+                }         
+                foreach (var sequence in args[0].GetAllUniqueSequences())
                 {
                     Console.WriteLine(sequence);
                 }

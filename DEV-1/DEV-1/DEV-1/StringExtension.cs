@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Text;
 using System.Linq;
+using System.Text;
 
 namespace DEV_1
 {
-    public class StringConverter
+    public static class StringExtension
     {
         /// <summary>
         /// Method GetAllUniqueSequences
@@ -12,7 +12,7 @@ namespace DEV_1
         /// </summary>
         /// <param name="receivedString">String, which was inputed</param>
         /// <returns>Collection of all sequence with unique serial symbols</returns>
-        public IEnumerable<string> GetAllUniqueSequences(string receivedString)
+        public static IEnumerable<string> GetAllUniqueSequences(this string receivedString)
         {
             var maxUniqueSequence = new StringBuilder();
             var allMaxSequence = new List<string>();
@@ -28,8 +28,8 @@ namespace DEV_1
                     }
                     maxUniqueSequence.Clear();
                 }
-            } 
-            return GetAllSubstrings(allMaxSequence);         
+            }
+            return GetAllSubstrings(allMaxSequence);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace DEV_1
         /// </summary>
         /// <param name="maxSequences">Collection of max sequences with unique serial symbolf of string</param>
         /// <returns>All sequences with unique serial symbols</returns>
-        public IEnumerable<string> GetAllSubstrings(IEnumerable<string> maxSequences)
+        private static IEnumerable<string> GetAllSubstrings(IEnumerable<string> maxSequences)
         {
             //Iterating every max length sequences for all serial sequences and add it to collection
             var allSequences = new List<string>();
@@ -46,10 +46,10 @@ namespace DEV_1
             {
                 for (var i = 0; i < sequence.Length; i++)
                 {
-                    for (var j = i+1; j < sequence.Length; j++)
+                    for (var j = i + 1; j < sequence.Length; j++)
                     {
-                        var substring = new string(sequence.Skip(i).Take(j-i+1).ToArray());
-                        if(substring.Length > 1)
+                        var substring = new string(sequence.Skip(i).Take(j - i + 1).ToArray());
+                        if (substring.Length > 1)
                         {
                             allSequences.Add(substring);
                         }
@@ -58,5 +58,6 @@ namespace DEV_1
             }
             return allSequences;
         }
-    }   
+    }
 }
+
