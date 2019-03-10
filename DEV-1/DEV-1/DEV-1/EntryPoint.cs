@@ -15,24 +15,22 @@ namespace DEV_1
         {
             try
             {
-                // Check whether the argument is the only one.
-                if (args.Length != 1)
+                // Check whether the argument is the more then 0.
+                if (args.Length == 0)
                 {
-                    if (args.Length == 0)
-                    {
-                        throw new ArgumentException("You have not used any arguments in the console line.");
-                    }
-
-                    throw new ArgumentException($"You used {args.Length} arguments instead of 1 argument.");
+                    throw new ArgumentException("You have not used any arguments in the console line.");
                 }
                 // Checks the argument for correctness.
                 if (args[0].Length<2)
                 {
                     throw new ArgumentException("Argument length less than two");
-                }         
-                foreach (var sequence in args[0].GetAllUniqueSequences())
+                }
+                foreach  (var arg in args)
                 {
-                    Console.WriteLine(sequence);
+                    foreach (var sequence in arg.GetAllUniqueSequences())
+                    {
+                        Console.WriteLine(sequence);
+                    }
                 }
             }
             catch (ArgumentException exception)
