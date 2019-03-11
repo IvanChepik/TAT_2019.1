@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System;
 using System.Text;
 
 namespace DEV_1
@@ -12,8 +13,16 @@ namespace DEV_1
         /// </summary>
         /// <param name="receivedString">String, which was inputed</param>
         /// <returns>Collection of all sequence with unique serial symbols</returns>
-        public static IEnumerable<string> GetAllUniqueSequences(this string receivedString)
+        public static IEnumerable<string> SearchAllUniqueSequences(this string receivedString)
         {
+            if (receivedString == null)
+            {
+                throw new ArgumentNullException("Input string is null");
+            }
+            if (receivedString.Length<2)
+            {
+                throw new ArgumentException("Argument length less than two");
+            }
             var maxUniqueSequence = new StringBuilder();
             var allMaxSequence = new List<string>();
             //Find all max length sequence with unique serial symbols and add it to maxUniqueSequence 

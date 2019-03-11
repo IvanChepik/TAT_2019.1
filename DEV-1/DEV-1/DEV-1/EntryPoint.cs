@@ -27,13 +27,13 @@ namespace DEV_1
                 }
                 foreach  (var arg in args)
                 {
-                    foreach (var sequence in arg.GetAllUniqueSequences())
+                    foreach (var sequence in arg.SearchAllUniqueSequences())
                     {
                         Console.WriteLine(sequence);
                     }
                 }
             }
-            catch (ArgumentException exception)
+            catch (Exception exception)
             {
                 Console.WriteLine($"Error : {exception.Message}");
             }
