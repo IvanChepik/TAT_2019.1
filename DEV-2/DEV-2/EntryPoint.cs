@@ -6,7 +6,9 @@ namespace DEV_2
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("оооооо+".GetPhoneticRepresentation());
+            Console.WriteLine("когти".GetPhoneticRepresentation());
+            //Console.WriteLine("белый".GetSas());
+
         }
     }
 }
