@@ -6,9 +6,8 @@ namespace DEV_2
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("когти".GetPhoneticRepresentation());
-            //Console.WriteLine("белый".GetSas());
-
+            var phoneticConverter = new PhoneticConverter();
+            Console.WriteLine(phoneticConverter.GetPhoneticRepresentation(args[0]));
         }
     }
 }
