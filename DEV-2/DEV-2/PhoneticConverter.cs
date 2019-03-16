@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 using System.Text;
+using System;
 
 namespace DEV_2
 {
@@ -8,6 +9,15 @@ namespace DEV_2
     {
         public string GetPhoneticRepresentation(string receivedString)
         {
+            if (receivedString == null)
+            {
+                throw new ArgumentNullException("Your string is null");
+            }
+            receivedString = receivedString.Replace(" ", string.Empty);
+            if (receivedString.Length == 0)
+            {
+                throw new ArgumentException("Your string is empty");
+            }
             receivedString = ReplaceOSymbolsWithouAccent(receivedString);
             receivedString = ReplaceSonantAndSharp(receivedString);
             receivedString = ReplaceVowelsOnSounds(receivedString);

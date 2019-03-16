@@ -6,8 +6,19 @@ namespace DEV_2
     {
         static void Main(string[] args)
         {
-            var phoneticConverter = new PhoneticConverter();
-            Console.WriteLine(phoneticConverter.GetPhoneticRepresentation(args[0]));
+            try
+            {
+                if (args.Length == 0)
+                {
+                    throw new ArgumentException("You haven't arguments.");
+                }
+                var phoneticConverter = new PhoneticConverter();
+                Console.WriteLine(phoneticConverter.GetPhoneticRepresentation(args[0]));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}!");
+            }
         }
     }
 }
