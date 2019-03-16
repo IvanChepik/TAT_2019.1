@@ -10,6 +10,7 @@ namespace DEV_2
         {
             receivedString = ReplaceOSymbolsWithouAccent(receivedString);
             receivedString = ReplaceSonantAndSharp(receivedString);
+            receivedString = ReplaceVowelsOnSounds(receivedString);
             return receivedString;
         }
         private string ReplaceOSymbolsWithouAccent(string receivedString)
@@ -22,24 +23,55 @@ namespace DEV_2
         private string ReplaceSonantAndSharp(string receivedString)
         {
             var result = new StringBuilder(receivedString);
-            if (SonantToVowelDictionary.ContainsKey(result[result.Length-1]))
+            if (SonantToSharpDictionary.ContainsKey(result[result.Length-1]))
             {
-                result[result.Length - 1] = SonantToVowelDictionary[result[result.Length - 1]];
+                result[result.Length - 1] = SonantToSharpDictionary[result[result.Length - 1]];
             }
             for (var i = result.Length - 1; i > 0; i--)
             {
-                if (SonantToVowelDictionary.ContainsValue(result[i]) && SonantToVowelDictionary.ContainsKey(result[i - 1]))
+                if (SonantToSharpDictionary.ContainsValue(result[i]) && SonantToSharpDictionary.ContainsKey(result[i - 1]))
                 {
-                    result[i - 1] = SonantToVowelDictionary[result[i - 1]];                  
+                    result[i - 1] = SonantToSharpDictionary[result[i - 1]];                  
                 }
-                if (VowelToSonantDictionary.ContainsValue(result[i]) &&  VowelToSonantDictionary.ContainsKey(result[i - 1]))
+                if (SharpToSonantDictionary.ContainsValue(result[i]) &&  SharpToSonantDictionary.ContainsKey(result[i - 1]))
                 {
-                    result[i - 1] = VowelToSonantDictionary[result[i - 1]];
+                    result[i - 1] = SharpToSonantDictionary[result[i - 1]];
                 }
             }
             return result.ToString();
         }
-        private readonly Dictionary<char, char> SonantToVowelDictionary = new Dictionary<char, char>()
+
+        private string ReplaceVowelsOnSounds(string receivedString)
+        {
+            var result = new StringBuilder(receivedString);
+            for (var i = receivedString.Length - 1; i >= 0; i--)
+            {
+                if (VowelsSoundsDictionary.ContainsKey(result[i]) && (i == 0 || vowels.Contains(result[i - 1])))
+                {
+                    result[i] = VowelsSoundsDictionary[result[i]];
+                    result.Insert(i, "й'");
+                }
+
+                if (VowelsSoundsDictionary.ContainsKey(result[i]) && (sonorous.Contains(result[i-1]) || SonantToSharpDictionary.ContainsKey(result[i-1]) || SharpToSonantDictionary.ContainsKey(result[i-1])))
+                {
+                    result[i] = VowelsSoundsDictionary[result[i]];
+                    result.Insert(i, '\'');
+                }
+            }
+            return result.ToString();
+        }
+
+        private readonly List<char> sonorous = new List<char>()
+        {
+            'н', 'р', 'м', 'л', 'й', 
+        };
+
+        private readonly List<char> vowels = new List<char>()
+        {
+            'а', 'о', 'э', 'и', 'у', 'ы', 'е', 'ё', 'ю', 'я',
+        };
+
+        private readonly Dictionary<char, char> SonantToSharpDictionary = new Dictionary<char, char>()
         {
             ['б'] = 'п',
             ['в'] = 'ф',
@@ -53,7 +85,7 @@ namespace DEV_2
             ['щ'] = 'щ',
         };
 
-        private readonly Dictionary<char, char> VowelToSonantDictionary = new Dictionary<char, char>()
+        private readonly Dictionary<char, char> SharpToSonantDictionary = new Dictionary<char, char>()
         {
             ['п'] = 'б',
             ['ф'] = 'в',
@@ -63,5 +95,12 @@ namespace DEV_2
             ['к'] = 'г',
         };
 
+        private readonly Dictionary<char, char> VowelsSoundsDictionary = new Dictionary<char, char>()
+        {
+            ['е'] = 'э',
+            ['ё'] = 'о',
+            ['ю'] = 'у',
+            ['я'] = 'а',
+        };
     }
 }
