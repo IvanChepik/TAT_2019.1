@@ -15,6 +15,10 @@ namespace DEV_2
                 {
                     throw new ArgumentException("You haven't arguments.");
                 }
+                if (args.Length > 1)
+                {
+                    throw new ArgumentException("You have more than 1 argument");
+                }
                 var phoneticConverter = new PhoneticConverter();
                 Console.WriteLine(phoneticConverter.GetPhoneticRepresentation(args[0]));
             }

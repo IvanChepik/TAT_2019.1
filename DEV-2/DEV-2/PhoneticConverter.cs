@@ -26,6 +26,7 @@ namespace DEV_2
             {
                 throw new ArgumentException("Your word has wrong accent format");
             }
+
             ReplaceOSymbolsWithouAccent();
             ReplaceSonantAndSharp();
             ReplaceVowelsOnSounds();
@@ -95,31 +96,36 @@ namespace DEV_2
         /// Method CheckAccent 
         /// check wrong accent
         /// </summary>
-        /// <returns>return false if accents wrong</returns>
+        /// <returns>return false is accents wrong</returns>
         private bool CheckAccent()
         {
             var numberOfAccents = word.Value.Count(e => e == '+');
-            if (word.CountOfVowels == 1 && numberOfAccents == 0)
+            if(numberOfAccents > 1)
+            {
+                return false;
+            }
+            var numberOfAlwaysAccent = word.Value.Count(e => e == 'ё');
+            if (numberOfAlwaysAccent > 1)
+            {
+                return false;
+            }
+            if(numberOfAccents == 0 && (word.CountOfVowels == 1 || word.Value.Contains('ё')))
             {
                 return true;
             }
-            if (word.Value.Count(e => e == 'ё') > 1)
+            if(numberOfAccents == 1)
             {
-                return false;
+                if (word.Value[0] == '+')
+                {
+                    return false;
+                }
+                if (word.Value.Contains('ё') && word.Value[word.Find('ё')+1] != '+')
+                {
+                    return false;
+                }
+                return (word.letters.vowels.Contains(word.Value[word.Find('+')-1]) || word.Value[word.Find('+') - 1] == 'ё');
             }
-            if (word.Value.Contains('ё') && (numberOfAccents == 0 || word.Value[word.Find('ё') + 1] == '+'))
-            {
-                return true;
-            }
-            if (numberOfAccents != 1)
-            {
-                return false;
-            }
-            if (word.letters.consonats.Contains(word.Value[word.Find('+') - 1]))
-            {
-                return false;
-            }
-            return true;
+            return false;
         }
 
         private readonly Dictionary<char, char> SonantToSharpDictionary = new Dictionary<char, char>()
