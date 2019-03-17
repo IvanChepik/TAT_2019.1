@@ -26,10 +26,10 @@ namespace DEV_2
             {
                 throw new ArgumentException("Your word has wrong accent format");
             }
-
             ReplaceOSymbolsWithouAccent();
             ReplaceSonantAndSharp();
             ReplaceVowelsOnSounds();
+            ReplaceSigns();
             return word.Value;
         }
         /// <summary>
@@ -59,13 +59,27 @@ namespace DEV_2
             }
             for (var i = word.Length - 1; i > 0; i--)
             {
-                if (SonantToSharpDictionary.ContainsValue(word.Value[i]) && SonantToSharpDictionary.ContainsKey(word.Value[i - 1]))
+                if (SonantToSharpDictionary.ContainsValue(word.Value[i])) 
                 {
-                    word.Replace(i - 1, SonantToSharpDictionary[word.Value[i - 1]]);
-                }
-                if (SharpToSonantDictionary.ContainsValue(word.Value[i]) && SharpToSonantDictionary.ContainsKey(word.Value[i - 1]))
+                    if ((word.Value[i-1] == 'ь' || word.Value[i-1] == 'ъ') && SonantToSharpDictionary.ContainsKey(word.Value[i-2]))
+                    {   
+                        word.Replace(i - 2, SonantToSharpDictionary[word.Value[i - 2]]);
+                    }
+                    else if (SonantToSharpDictionary.ContainsKey(word.Value[i - 1]))
+                    {
+                        word.Replace(i - 1, SonantToSharpDictionary[word.Value[i - 1]]);
+                    }
+                }               
+                if (SharpToSonantDictionary.ContainsValue(word.Value[i]))  
                 {
-                    word.Replace(i - 1, SharpToSonantDictionary[word.Value[i - 1]]);
+                    if ((word.Value[i - 1] == 'ь' || word.Value[i - 1] == 'ъ') && SharpToSonantDictionary.ContainsKey(word.Value[i - 2]))
+                    {
+                        word.Replace(i - 2, SharpToSonantDictionary[word.Value[i - 2]]);
+                    }
+                    else if (SharpToSonantDictionary.ContainsKey(word.Value[i - 1]))
+                    {
+                        word.Replace(i - 1, SharpToSonantDictionary[word.Value[i - 1]]);
+                    }
                 }
             }
         }
@@ -91,6 +105,15 @@ namespace DEV_2
                     }
                 }       
             }
+        }
+        /// <summary>
+        /// method ReplaceSigns 
+        /// replaces all soft and hard signs on ' or remove it
+        /// </summary>
+        private void ReplaceSigns()
+        {
+            word.Replace("ь", "\'");
+            word.Replace("ъ", "");
         }
         /// <summary>
         /// Method CheckAccent 
@@ -126,7 +149,7 @@ namespace DEV_2
                 return (word.letters.vowels.Contains(word.Value[word.Find('+')-1]) || word.Value[word.Find('+') - 1] == 'ё');
             }
             return false;
-        }
+        }        
 
         private readonly Dictionary<char, char> SonantToSharpDictionary = new Dictionary<char, char>()
         {

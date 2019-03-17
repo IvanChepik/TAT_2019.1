@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Linq;
+using System;
 
 namespace DEV_2
 {
@@ -14,7 +15,16 @@ namespace DEV_2
         
         public Word(string receivedString)
         {
-            word = new StringBuilder(receivedString);
+            if(!CheckOnRussian(receivedString))
+            {
+                throw new ArgumentException("Text russian word");
+            }
+            word = new StringBuilder(receivedString);           
+        }
+
+        private bool CheckOnRussian(string receivedString)
+        {
+            return receivedString.All(e => letters.consonats.Contains(e) || letters.vowels.Contains(e));
         }
         public int CountOfVowels
         {
@@ -41,10 +51,15 @@ namespace DEV_2
         {
             word[indexOldSymbol] = newSymbol;
         }
+        public void Replace(string oldSymbol, string newSymbol)
+        {
+            word.Replace(oldSymbol, newSymbol);
+        }
         public void Insert(int indexOfSymbol, string newSymbols)
         {
             word.Insert(indexOfSymbol, newSymbols);
         }
+        
         public void Remove(char symbol)
         {
             if (Value.Contains('+'))
@@ -58,7 +73,7 @@ namespace DEV_2
         }
         public bool CheckOfBeforeNoConsonat(int index)
         {
-            return index == 0 || !letters.consonats.Contains(word[index - 1]);
+            return index == 0 || !letters.consonats.Contains(word[index - 1]) ;
         }
     }
 }
