@@ -4,6 +4,9 @@ namespace DEV_2
 {
     class EntryPoint
     {
+        /// Class EntryPoint 
+        /// Takes 1 argument(string) from the command line and 
+        /// search phonetic representation 
         static void Main(string[] args)
         {
             try

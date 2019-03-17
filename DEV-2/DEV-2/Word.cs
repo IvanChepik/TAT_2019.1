@@ -3,10 +3,14 @@ using System.Linq;
 
 namespace DEV_2
 {
+    /// <summary>
+    /// class Word
+    /// encapsulates StringBuilder to work with string
+    /// </summary>
     public class Word
     {
         private StringBuilder word;
-        private Letters letters = new Letters();
+        public Letters letters = new Letters();
         
         public Word(string receivedString)
         {
@@ -41,7 +45,17 @@ namespace DEV_2
         {
             word.Insert(indexOfSymbol, newSymbols);
         }
-
+        public void Remove(char symbol)
+        {
+            if (Value.Contains('+'))
+            {
+                word.Remove(Find(symbol), 1);
+            }
+        }
+        public int Find(char symbol)
+        {
+            return word.ToString().IndexOf(symbol);
+        }
         public bool CheckOfBeforeNoConsonat(int index)
         {
             return index == 0 || !letters.consonats.Contains(word[index - 1]);

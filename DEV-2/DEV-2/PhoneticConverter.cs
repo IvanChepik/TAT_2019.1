@@ -1,10 +1,12 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
-using System.Text;
 using System;
 
 namespace DEV_2
-{
+{/// <summary>
+/// Class Phonetic Convertor
+/// take string, create new word and convert it to phonetic 
+/// </summary>
     public class PhoneticConverter
     {
         private Word word;
@@ -18,24 +20,36 @@ namespace DEV_2
             if (receivedString.Length == 0)
             {
                 throw new ArgumentException("Your string is empty");
-            }
+            }           
             word = new Word(receivedString);
-            //посмотреть сколько слогов(сколько содержится гласных), если нет ударение и слогов два говно, если есть ё и ударение не на ё пошел нахуй, если нет плюса и есть ё то все норм
+            if (!CheckAccent())
+            {
+                throw new ArgumentException("Your word has wrong accent format");
+            }
             ReplaceOSymbolsWithouAccent();
             ReplaceSonantAndSharp();
             ReplaceVowelsOnSounds();
             return word.Value;
         }
+        /// <summary>
+        /// method ReplaceOSymbolsWithoutAccent 
+        /// replace 'o' without accent on 'a'
+        /// </summary>
         private void ReplaceOSymbolsWithouAccent()
         {           
             for (var i = 0; i < word.Length; i++)
             {
-                if(word.Value[i] == 'о' && (i == word.Length - 1 || word.Value[i + 1] != '+'))
+                if(word.Value[i] == 'о' && (i == word.Length - 1 || word.Value[i + 1] != '+') && word.CountOfVowels > 1)
                 {
                     word.Replace(i, 'а');
-                }
+                }               
             }
+            word.Remove('+');
         }
+        /// <summary>
+        /// method ReplaceSonantAndSharp 
+        /// replace sonant and sharp on the principle of regressive assimilation
+        /// </summary>
         private void ReplaceSonantAndSharp()
         {
             if (SonantToSharpDictionary.ContainsKey(word.Value[word.Length-1]))
@@ -54,6 +68,10 @@ namespace DEV_2
                 }
             }
         }
+        /// <summary>
+        /// method ReplaceVowelsOnSounds
+        /// replace all vowel on phonetic depending on the preceding letter
+        /// </summary>
         private void ReplaceVowelsOnSounds()
         {
             for (var i = word.Length - 1; i >= 0; i--)
@@ -72,6 +90,36 @@ namespace DEV_2
                     }
                 }       
             }
+        }
+        /// <summary>
+        /// Method CheckAccent 
+        /// check wrong accent
+        /// </summary>
+        /// <returns>return false if accents wrong</returns>
+        private bool CheckAccent()
+        {
+            var numberOfAccents = word.Value.Count(e => e == '+');
+            if (word.CountOfVowels == 1 && numberOfAccents == 0)
+            {
+                return true;
+            }
+            if (word.Value.Count(e => e == 'ё') > 1)
+            {
+                return false;
+            }
+            if (word.Value.Contains('ё') && (numberOfAccents == 0 || word.Value[word.Find('ё') + 1] == '+'))
+            {
+                return true;
+            }
+            if (numberOfAccents != 1)
+            {
+                return false;
+            }
+            if (word.letters.consonats.Contains(word.Value[word.Find('+') - 1]))
+            {
+                return false;
+            }
+            return true;
         }
 
         private readonly Dictionary<char, char> SonantToSharpDictionary = new Dictionary<char, char>()
