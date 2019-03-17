@@ -5,81 +5,74 @@ using System;
 
 namespace DEV_2
 {
-    class PhoneticConverter
+    public class PhoneticConverter
     {
+        private Word word;
         public string GetPhoneticRepresentation(string receivedString)
         {
             if (receivedString == null)
             {
                 throw new ArgumentNullException("Your string is null");
             }
-            receivedString = receivedString.Replace(" ", string.Empty);
+            receivedString = receivedString.Replace(" ", string.Empty).ToLower();
             if (receivedString.Length == 0)
             {
                 throw new ArgumentException("Your string is empty");
             }
-            receivedString = ReplaceOSymbolsWithouAccent(receivedString);
-            receivedString = ReplaceSonantAndSharp(receivedString);
-            receivedString = ReplaceVowelsOnSounds(receivedString);
-            return receivedString;
+            word = new Word(receivedString);
+            //посмотреть сколько слогов(сколько содержится гласных), если нет ударение и слогов два говно, если есть ё и ударение не на ё пошел нахуй, если нет плюса и есть ё то все норм
+            ReplaceOSymbolsWithouAccent();
+            ReplaceSonantAndSharp();
+            ReplaceVowelsOnSounds();
+            return word.Value;
         }
-        private string ReplaceOSymbolsWithouAccent(string receivedString)
-        {
-            return new string(receivedString
-                            .Select((e, i) => (e == 'о') && (i == receivedString.Length - 1 || receivedString[i + 1] != '+') ? 'а' : e)
-                            .Where(e => e != '+')
-                            .ToArray());
-        }
-        private string ReplaceSonantAndSharp(string receivedString)
-        {
-            var result = new StringBuilder(receivedString);
-            if (SonantToSharpDictionary.ContainsKey(result[result.Length-1]))
+        private void ReplaceOSymbolsWithouAccent()
+        {           
+            for (var i = 0; i < word.Length; i++)
             {
-                result[result.Length - 1] = SonantToSharpDictionary[result[result.Length - 1]];
-            }
-            for (var i = result.Length - 1; i > 0; i--)
-            {
-                if (SonantToSharpDictionary.ContainsValue(result[i]) && SonantToSharpDictionary.ContainsKey(result[i - 1]))
+                if(word.Value[i] == 'о' && (i == word.Length - 1 || word.Value[i + 1] != '+'))
                 {
-                    result[i - 1] = SonantToSharpDictionary[result[i - 1]];                  
-                }
-                if (SharpToSonantDictionary.ContainsValue(result[i]) &&  SharpToSonantDictionary.ContainsKey(result[i - 1]))
-                {
-                    result[i - 1] = SharpToSonantDictionary[result[i - 1]];
+                    word.Replace(i, 'а');
                 }
             }
-            return result.ToString();
         }
-
-        private string ReplaceVowelsOnSounds(string receivedString)
+        private void ReplaceSonantAndSharp()
         {
-            var result = new StringBuilder(receivedString);
-            for (var i = receivedString.Length - 1; i >= 0; i--)
+            if (SonantToSharpDictionary.ContainsKey(word.Value[word.Length-1]))
+            {                
+                word.Replace(word.Length - 1, SonantToSharpDictionary[word.Value[word.Length - 1]]);
+            }
+            for (var i = word.Length - 1; i > 0; i--)
             {
-                if (VowelsSoundsDictionary.ContainsKey(result[i]) && (i == 0 || vowels.Contains(result[i - 1])))
+                if (SonantToSharpDictionary.ContainsValue(word.Value[i]) && SonantToSharpDictionary.ContainsKey(word.Value[i - 1]))
                 {
-                    result[i] = VowelsSoundsDictionary[result[i]];
-                    result.Insert(i, "й'");
+                    word.Replace(i - 1, SonantToSharpDictionary[word.Value[i - 1]]);
                 }
-
-                if (VowelsSoundsDictionary.ContainsKey(result[i]) && (sonorous.Contains(result[i-1]) || SonantToSharpDictionary.ContainsKey(result[i-1]) || SharpToSonantDictionary.ContainsKey(result[i-1])))
+                if (SharpToSonantDictionary.ContainsValue(word.Value[i]) && SharpToSonantDictionary.ContainsKey(word.Value[i - 1]))
                 {
-                    result[i] = VowelsSoundsDictionary[result[i]];
-                    result.Insert(i, '\'');
+                    word.Replace(i - 1, SharpToSonantDictionary[word.Value[i - 1]]);
                 }
             }
-            return result.ToString();
         }
-
-        private readonly List<char> sonorous = new List<char>()
+        private void ReplaceVowelsOnSounds()
         {
-            'н', 'р', 'м', 'л', 'й', 
-        };
-
-        private readonly List<char> vowels = new List<char>()
-        {
-            'а', 'о', 'э', 'и', 'у', 'ы', 'е', 'ё', 'ю', 'я',
-        };
+            for (var i = word.Length - 1; i >= 0; i--)
+            {
+                if (VowelsSoundsDictionary.ContainsKey(word.Value[i]))
+                {
+                    if (word.CheckOfBeforeNoConsonat(i))
+                    {
+                        word.Replace(i, VowelsSoundsDictionary[word.Value[i]]);
+                        word.Insert(i, "й'");
+                    }
+                    else
+                    {
+                        word.Replace(i, VowelsSoundsDictionary[word.Value[i]]);
+                        word.Insert(i, "\'");
+                    }
+                }       
+            }
+        }
 
         private readonly Dictionary<char, char> SonantToSharpDictionary = new Dictionary<char, char>()
         {
