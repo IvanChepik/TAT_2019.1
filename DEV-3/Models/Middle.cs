@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace Models
 {
-    public class Middle : Employee
+    public class Middle : Junior
     {
+        public override decimal Sum => 1000;
+        public override int Productivity => 700;
     }
 }

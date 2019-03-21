@@ -1,15 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Criterions;
 
 namespace DEV_3
 {
-    class Program
+    public class EntryPoint
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
+            Company company = new Company(new CriterionMaxProduct(), 10000, 10000);
+            company.Optimize();
+            Console.WriteLine(company.JuniorsOnProject);
+            Console.WriteLine(company.MiddlesOnProject);
+            Console.WriteLine(company.SeniorsOnProject);
+            Console.WriteLine(company.LeadsOnProject);
         }
     }
 }
