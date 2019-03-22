@@ -60,17 +60,17 @@ namespace DEV_3
         }
         private static bool TryParseCriterion(int choosingCriterion, out IOptimize criterion)
         {
-            if (choosingCriterion == 1)
+            if (choosingCriterion == (int)Criterions.CriterionMaxProduct)
             {
                 criterion = new CriterionMaxProduct();
                 return true;
             }
-            if (choosingCriterion == 2)
+            if (choosingCriterion == (int)Criterions.CriterionMinCost)
             {
                 criterion = new CriterionMinCoast();
                 return true;
             }
-            if (choosingCriterion == 3)
+            if (choosingCriterion == (int)Criterions.CriterionNoJunior)
             {
                 criterion = new CriterionNoJunior();
                 return true;

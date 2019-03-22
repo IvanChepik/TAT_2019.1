@@ -15,7 +15,7 @@ namespace Criterions
         public void Optimize(decimal productivity, List<Employee> employees)
         {
             employees = SortByCoef(employees);
-            SelectEmployeeForMinCoast(employees, productivity);
+            var ost = SelectEmployeeForMinCoast(employees, productivity);
         }
         private decimal SelectEmployeeForMinCoast(List<Employee> employees, decimal productivity)
         {
@@ -35,5 +35,6 @@ namespace Criterions
         {
             return employees.OrderByDescending(x => x.Coef).ToList();
         }
+
     }
 }
