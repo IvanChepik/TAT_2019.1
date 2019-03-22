@@ -1,9 +1,13 @@
-﻿using System;
-using Models;
+﻿using Models;
 using System.Linq;
 using System.Collections.Generic;
 namespace Criterions
 {
+    /// <summary>
+    /// class CriterionMinCoast
+    /// implement finding of quantity and type employees
+    /// for fix product and min cost
+    /// </summary>
     public class CriterionMinCoast : IOptimize
     {
         public List<Employee> EmployeesToWork { get; } = new List<Employee>();

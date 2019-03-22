@@ -1,9 +1,13 @@
 ﻿using Models;
 using System.Collections.Generic;
-using System;
 using System.Linq;
 namespace Criterions
 {
+    /// <summary>
+    /// class CriterionMinCoast
+    /// implement finding of quantity and type employees
+    /// for fix product and min cost without Junior 
+    /// </summary>
     public class CriterionNoJunior : IOptimize
     {
         public List<Employee> EmployeesToWork { get; } = new List<Employee>();
@@ -12,7 +16,7 @@ namespace Criterions
         {
             employees = SortByCoef(employees);
             employees = RemoveAllJuniors(employees);
-            SelectEmployeeForMinCoast(employees, productivity);
+            SelectEmployeeForMinCoast(employees, productivity);           
         }
         private List<Employee> RemoveAllJuniors(List<Employee> employees)
         {

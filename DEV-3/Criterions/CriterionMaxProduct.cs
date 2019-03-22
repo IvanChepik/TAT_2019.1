@@ -5,6 +5,11 @@ using System.Collections.Generic;
 
 namespace Criterions
 {
+    /// <summary>
+    /// Class CriterionMaxProduct
+    /// implement finding of quantity and type employees
+    /// for fix cost and max product
+    /// </summary>
     public class CriterionMaxProduct : IOptimize
     {
         public List<Employee> EmployeesToWork { get; } = new List<Employee>();
@@ -13,6 +18,10 @@ namespace Criterions
         {
             employees = SortByCoef(employees);
             SelectEmployeeForMaxProductivity(employees, sum);
+            if (EmployeesToWork.Count == 0)
+            {
+                throw new WorkCannotBeExecutedException("Don't enough money even for one employee");
+            }
         }
 
         private List<Employee> SortByCoef(List<Employee> employees)

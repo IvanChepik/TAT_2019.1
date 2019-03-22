@@ -1,9 +1,15 @@
 ﻿using System.Collections.Generic;
 using Criterions;
+using System;
 using Models;
 
 namespace DEV_3
 {
+    /// <summary>
+    /// Class Company
+    /// It's a context which have a ref on IOptimize object 
+    /// and connected with it by agregation
+    /// </summary>
     public class Company
     {
         const int CountOfJuniors = 15;
@@ -26,10 +32,22 @@ namespace DEV_3
             Optimization = optimization;
             Сondition = condition;
         }
+        /// <summary>
+        /// Method Optimize
+        /// calls a function Optimize in object IOptimize
+        /// and count quantity of employees 
+        /// </summary>
         public void Optimize()
         {
-            Optimization.Optimize(Сondition, allEmployees);
-            CountQuantityEmp();
+            try
+            { 
+                Optimization.Optimize(Сondition, allEmployees);
+                CountQuantityEmp();
+            }
+            catch
+            {
+                throw new ArgumentException("Error with criterion");
+            }
         }
         private void InitEmployeesByJuniors()
         {
