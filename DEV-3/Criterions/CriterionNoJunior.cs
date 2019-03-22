@@ -1,17 +1,26 @@
-﻿using System;
-using Models;
-using System.Linq;
+﻿using Models;
 using System.Collections.Generic;
+using System;
+using System.Linq;
 namespace Criterions
 {
-    public class CriterionMinCoast : IOptimize
+    public class CriterionNoJunior : IOptimize
     {
         public List<Employee> EmployeesToWork { get; } = new List<Employee>();
 
         public void Optimize(decimal productivity, List<Employee> employees)
         {
             employees = SortByCoef(employees);
+            employees = RemoveAllJuniors(employees);
             SelectEmployeeForMinCoast(employees, productivity);
+        }
+        private List<Employee> RemoveAllJuniors(List<Employee> employees)
+        {
+            return employees.Where(e => !(typeof(Junior) == e.GetType())).ToList();
+        }
+        private List<Employee> SortByCoef(List<Employee> employees)
+        {
+            return employees.OrderByDescending(x => x.Coef).ToList();
         }
         private decimal SelectEmployeeForMinCoast(List<Employee> employees, decimal productivity)
         {
@@ -26,10 +35,6 @@ namespace Criterions
                 }
             }
             return sumCoast;
-        }
-        private List<Employee> SortByCoef(List<Employee> employees)
-        {
-            return employees.OrderByDescending(x => x.Coef).ToList();
         }
     }
 }

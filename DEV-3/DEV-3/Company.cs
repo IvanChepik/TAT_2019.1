@@ -12,25 +12,23 @@ namespace DEV_3
         const int CountOfLeads = 5;
         private readonly List<Employee> allEmployees = new List<Employee>();
         public IOptimize Optimization { private get; set; }
-        public decimal Sum { get; private set; }
-        public int Productivity { get; private set; }
+        public decimal Сondition { get; private set; }
         public int JuniorsOnProject { get; set; }
         public int MiddlesOnProject { get; set; }
         public int SeniorsOnProject { get; set; }
         public int LeadsOnProject { get; set; }
-        public Company(IOptimize optimization, decimal sum, int productivity)
+        public Company(IOptimize optimization, decimal condition)
         {
             InitEmployeesByJuniors();
             InitEmployeesByMiddles();
             InitEmployeesBySeniors();
             InitEmployeesByLeads();
             Optimization = optimization;
-            Sum = sum;
-            Productivity = productivity;
+            Сondition = condition;
         }
         public void Optimize()
         {
-            Optimization.Optimize(Sum, Productivity, allEmployees);
+            Optimization.Optimize(Сondition, allEmployees);
             CountQuantityEmp();
         }
         private void InitEmployeesByJuniors()

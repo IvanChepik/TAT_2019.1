@@ -7,12 +7,12 @@ namespace DEV_3
     {
         public static void Main(string[] args)
         {
-            Company company = new Company(new CriterionMaxProduct(), 10000, 10000);
+            Company company = new Company(new CriterionNoJunior(), 10000);
             company.Optimize();
-            Console.WriteLine(company.JuniorsOnProject);
-            Console.WriteLine(company.MiddlesOnProject);
-            Console.WriteLine(company.SeniorsOnProject);
-            Console.WriteLine(company.LeadsOnProject);
+            Console.WriteLine($"Juniors = {company.JuniorsOnProject}");
+            Console.WriteLine($"Middles = {company.MiddlesOnProject}");
+            Console.WriteLine($"Seniors = {company.SeniorsOnProject}");
+            Console.WriteLine($"Leads = {company.LeadsOnProject}");
         }
     }
 }

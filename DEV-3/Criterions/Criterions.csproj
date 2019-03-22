@@ -43,7 +43,7 @@
   <ItemGroup>
     <Compile Include="CriterionMaxProduct.cs" />
     <Compile Include="CriterionMinCoast.cs" />
-    <Compile Include="CriterionJunior.cs" />
+    <Compile Include="CriterionNoJunior.cs" />
     <Compile Include="IOptimize.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
