@@ -1,7 +1,9 @@
-﻿
-
-namespace Models
+﻿namespace Models
 {
+    /// <summary>
+    /// Abstract class Employee
+    /// this class included common fields of all employes.
+    /// </summary>
     public abstract class Employee
     {
         public abstract decimal Sum { get; }
