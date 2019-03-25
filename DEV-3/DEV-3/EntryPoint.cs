@@ -23,6 +23,7 @@ namespace DEV_3
             try
             {
                 IOptimize criterion;
+
                 if (int.TryParse(args[0], out choosingCriterion))
                 {
                     if(!TryParseCriterion(choosingCriterion, out criterion))
@@ -34,16 +35,18 @@ namespace DEV_3
                 {
                     throw new ArgumentException("Wrong format argument. Input int number");
                 }
+
+                Console.WriteLine("Input a value of conidion");
+
                 if (!decimal.TryParse(Console.ReadLine(),out condition))
                 {
                     throw new FormatException("Input number");
                 }
+
                 Company company = new Company(criterion, condition);
                 company.Optimize();
-                Console.WriteLine($"Juniors = {company.JuniorsOnProject}");
-                Console.WriteLine($"Middles = {company.MiddlesOnProject}");
-                Console.WriteLine($"Seniors = {company.SeniorsOnProject}");
-                Console.WriteLine($"Leads = {company.LeadsOnProject}");
+                DisplayEmployeesOnProject(company);
+                
             }
             catch (ArgumentException ex)
             {
@@ -53,30 +56,59 @@ namespace DEV_3
             {
                 Console.WriteLine($"Error in inputing condition : {ex.Message}!");
             }
+            catch (WorkCannotBeExecutedException ex)
+            {
+                Console.WriteLine($"Error with workness: {ex.Message}!");
+            }
             catch (Exception)
             {
                 Console.WriteLine("Something going wrong!");
             }
         }
+
+        /// <summary>
+        /// method TryParseCriterion
+        /// select type of object which will in ref criterion by argument choosingCriterion
+        /// </summary>
+        /// <param name="choosingCriterion">number which select type of criterion </param>
+        /// <param name="criterion">ref on criterion which was selected in this method</param>
+        /// <returns>return true if parsing is correct or false if is not correct</returns>
         private static bool TryParseCriterion(int choosingCriterion, out IOptimize criterion)
         {
             if (choosingCriterion == (int)Criterions.CriterionMaxProduct)
-            {
+            {              
                 criterion = new CriterionMaxProduct();
                 return true;
             }
+
             if (choosingCriterion == (int)Criterions.CriterionMinCost)
             {
                 criterion = new CriterionMinCoast();
                 return true;
             }
+
             if (choosingCriterion == (int)Criterions.CriterionNoJunior)
             {
                 criterion = new CriterionNoJunior();
                 return true;
             }
+
             criterion = null;
             return false;
         }
+
+        /// <summary>
+        /// method DisplayEmployeesOnProject
+        /// displays quantity employees of every type
+        /// </summary>
+        /// <param name="company">company with list of employees on project</param>
+        private static void DisplayEmployeesOnProject(Company company)
+        {
+            Console.WriteLine($"Juniors = {company.JuniorsOnProject}");
+            Console.WriteLine($"Middles = {company.MiddlesOnProject}");
+            Console.WriteLine($"Seniors = {company.SeniorsOnProject}");
+            Console.WriteLine($"Leads = {company.LeadsOnProject}");
+        }
+
     }
 }

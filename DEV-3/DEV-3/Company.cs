@@ -23,6 +23,7 @@ namespace DEV_3
         public int MiddlesOnProject { get; set; }
         public int SeniorsOnProject { get; set; }
         public int LeadsOnProject { get; set; }
+
         public Company(IOptimize optimization, decimal condition)
         {
             InitEmployeesByJuniors();
@@ -32,6 +33,7 @@ namespace DEV_3
             Optimization = optimization;
             Сondition = condition;
         }
+
         /// <summary>
         /// Method Optimize
         /// calls a function Optimize in object IOptimize
@@ -44,11 +46,20 @@ namespace DEV_3
                 Optimization.Optimize(Сondition, allEmployees);
                 CountQuantityEmp();
             }
-            catch
+            catch (WorkCannotBeExecutedException e)
             {
-                throw new ArgumentException("Error with criterion");
+                throw new WorkCannotBeExecutedException(e.Message);
+            }
+            catch (Exception)
+            {
+                throw new Exception();
             }
         }
+
+        /// <summary>
+        /// InitEmployees methods is a hard code 
+        /// this list can be easily replaced by database
+        /// </summary>
         private void InitEmployeesByJuniors()
         {
             for(int i = 0; i < CountOfJuniors; i++)
@@ -56,6 +67,7 @@ namespace DEV_3
                 allEmployees.Add(new Junior());
             }
         }
+
         private void InitEmployeesByMiddles()
         {
             for (int i = 0; i < CountOfMiddles; i++)
@@ -63,6 +75,7 @@ namespace DEV_3
                 allEmployees.Add(new Middle());
             }
         }
+
         private void InitEmployeesBySeniors()
         {
             for (int i = 0; i < CountOfSeniors; i++)
@@ -70,6 +83,7 @@ namespace DEV_3
                 allEmployees.Add(new Senior());
             }
         }
+
         private void InitEmployeesByLeads()
         {
             for (int i = 0; i < CountOfLeads; i++)
@@ -77,6 +91,12 @@ namespace DEV_3
                 allEmployees.Add(new Lead());
             }
         }
+
+        /// <summary>
+        /// method CountQuantityEmp
+        /// this method count quantity of each employees type 
+        /// in final project list
+        /// </summary>
         private void CountQuantityEmp()
         {
             foreach (var emp in Optimization.EmployeesToWork)
@@ -103,5 +123,6 @@ namespace DEV_3
                 }
             }
         }
+
     }
 }

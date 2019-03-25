@@ -1,7 +1,9 @@
-﻿
-
-namespace DEV_3
+﻿namespace DEV_3
 {
+    /// <summary>
+    /// enum Criterions
+    /// included all criterions of optimize
+    /// </summary>
     enum Criterions
     {
         CriterionMaxProduct = 1,
