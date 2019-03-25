@@ -24,6 +24,12 @@ namespace DEV_3
         public int SeniorsOnProject { get; set; }
         public int LeadsOnProject { get; set; }
 
+        /// <summary>
+        /// Constructor Company
+        /// init list of all employees and install criterion and condition of this criterion.
+        /// </summary>
+        /// <param name="optimization">criterion of optimize</param>
+        /// <param name="condition">condition of criterion</param>
         public Company(IOptimize optimization, decimal condition)
         {
             InitEmployeesByJuniors();
