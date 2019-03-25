@@ -8,7 +8,7 @@ namespace DEV_3
     /// <summary>
     /// Class Company
     /// It's a context which have a ref on IOptimize object 
-    /// and connected with it by agregation
+    /// and connected with it by agregation.
     /// </summary>
     public class Company
     {
@@ -37,7 +37,7 @@ namespace DEV_3
         /// <summary>
         /// Method Optimize
         /// calls a function Optimize in object IOptimize
-        /// and count quantity of employees 
+        /// and count quantity of employees. 
         /// </summary>
         public void Optimize()
         {
@@ -58,7 +58,7 @@ namespace DEV_3
 
         /// <summary>
         /// InitEmployees methods is a hard code 
-        /// this list can be easily replaced by database
+        /// this list can be easily replaced by database.
         /// </summary>
         private void InitEmployeesByJuniors()
         {
@@ -93,9 +93,9 @@ namespace DEV_3
         }
 
         /// <summary>
-        /// method CountQuantityEmp
-        /// this method count quantity of each employees type 
-        /// in final project list
+        /// Method CountQuantityEmp
+        /// this method count quantity of each employees type.
+        /// in final project list.
         /// </summary>
         private void CountQuantityEmp()
         {
@@ -106,21 +106,25 @@ namespace DEV_3
                     LeadsOnProject++;
                     continue;
                 }
+
                 if (emp is Senior)
                 {
                     SeniorsOnProject++;
                     continue;
                 }
+
                 if (emp is Middle)
                 {
                     MiddlesOnProject++;
                     continue;
                 }
+
                 if (emp is Junior)
                 {
                     JuniorsOnProject++;
                     continue;
                 }
+
             }
         }
 

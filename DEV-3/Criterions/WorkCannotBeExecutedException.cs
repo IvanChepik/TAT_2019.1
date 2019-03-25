@@ -4,7 +4,7 @@ namespace Criterions
 {
     /// <summary>
     /// Class WorkCannotBeExecutedException
-    /// thrown when don't enough money 
+    /// thrown when don't enough money.
     /// </summary>
     public class WorkCannotBeExecutedException : ApplicationException
     {

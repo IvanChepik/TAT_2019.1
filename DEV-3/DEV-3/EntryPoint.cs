@@ -5,12 +5,12 @@ namespace DEV_3
 {
     /// <summary>
     /// Class EntryPoint
-    /// Receives a int number (1,2,3), which match with different criterion
+    /// Receives a int number (1,2,3), which match with different criterion.
     /// </summary>
     public class EntryPoint
     {/// <summary>
      /// Method Main
-     /// Entry point
+     /// Entry point.
      /// </summary>
      /// <param name="args">Arguments from the command line.
      /// 1 is Criterion of Max Productivity with fix cost
@@ -67,8 +67,8 @@ namespace DEV_3
         }
 
         /// <summary>
-        /// method TryParseCriterion
-        /// select type of object which will in ref criterion by argument choosingCriterion
+        /// Method TryParseCriterion
+        /// select type of object which will in ref criterion by argument choosingCriterion.
         /// </summary>
         /// <param name="choosingCriterion">number which select type of criterion </param>
         /// <param name="criterion">ref on criterion which was selected in this method</param>
@@ -98,8 +98,8 @@ namespace DEV_3
         }
 
         /// <summary>
-        /// method DisplayEmployeesOnProject
-        /// displays quantity employees of every type
+        /// Method DisplayEmployeesOnProject
+        /// displays quantity employees of every type.
         /// </summary>
         /// <param name="company">company with list of employees on project</param>
         private static void DisplayEmployeesOnProject(Company company)

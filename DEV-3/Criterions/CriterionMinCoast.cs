@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Criterions
 {
     /// <summary>
-    /// class CriterionMinCoast
+    /// Class CriterionMinCoast
     /// implement finding of quantity and type employees
     /// for fix product and min cost
     /// </summary>
@@ -13,9 +13,9 @@ namespace Criterions
         public List<Employee> EmployeesToWork { get; } = new List<Employee>();
 
         /// <summary>
-        /// method Optimize
+        /// Method Optimize
         /// is called from company and make a team 
-        /// with min value of product and fix product
+        /// with min value of product and fix product.
         /// </summary>
         /// <param name="sum">value of necessary product</param>
         /// <param name="employees">list of all employees</param>
@@ -26,8 +26,8 @@ namespace Criterions
         }
 
         /// <summary>
-        /// method SelectEmployeeForMinCoast
-        /// add employees in list for min cost
+        /// Method SelectEmployeeForMinCoast
+        /// add employees in list for min cost.
         /// </summary>
         /// <param name="employees">list of all employees in company sorted by coef</param>
         /// <param name="productivity">productivity of min cost</param>
@@ -47,6 +47,13 @@ namespace Criterions
             return sumCoast;
         }
 
+        /// <summary>
+        /// Method SortByCoef
+        /// it's sorts list of all employees by coef
+        /// for the max value in cost/productivity.
+        /// </summary>
+        /// <param name="employees">list of all employees</param>
+        /// <returns>sorted list</returns>
         private List<Employee> SortByCoef(List<Employee> employees)
         {
             return employees.OrderByDescending(x => x.Coef).ToList();

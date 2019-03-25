@@ -4,9 +4,9 @@ using Models;
 namespace Criterions
 {
     /// <summary>
-    /// interface IOptimize
+    /// Interface IOptimize
     /// this interface includes methods for our criterions
-    /// and allows uses methods and properties in independence of choosen criterion
+    /// and allows uses methods and properties in independence of choosen criterion.
     /// </summary>
     public interface IOptimize
     {

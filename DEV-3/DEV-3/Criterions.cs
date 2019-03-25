@@ -1,8 +1,8 @@
 ﻿namespace DEV_3
 {
     /// <summary>
-    /// enum Criterions
-    /// included all criterions of optimize
+    /// Enum Criterions
+    /// included all criterions of optimize.
     /// </summary>
     enum Criterions
     {

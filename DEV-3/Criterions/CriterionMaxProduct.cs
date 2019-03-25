@@ -24,10 +24,12 @@ namespace Criterions
         {
             employees = SortByCoef(employees);
             SelectEmployeeForMaxProductivity(employees, sum);
+
             if (EmployeesToWork.Count == 0)
             {
                 throw new WorkCannotBeExecutedException("Don't enough money even for one employee");
             }
+
         }
         
         /// <summary>
