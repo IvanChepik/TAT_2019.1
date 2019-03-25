@@ -36,7 +36,7 @@ namespace DEV_3
                     throw new ArgumentException("Wrong format argument. Input int number");
                 }
 
-                Console.WriteLine("Input a value of conidion");
+                Console.WriteLine("Input a value of condition");
 
                 if (!decimal.TryParse(Console.ReadLine(),out condition))
                 {
@@ -54,7 +54,7 @@ namespace DEV_3
             }
             catch (FormatException ex)
             {
-                Console.WriteLine($"Error in inputing condition : {ex.Message}!");
+                Console.WriteLine($"Error in input condition : {ex.Message}!");
             }
             catch (WorkCannotBeExecutedException ex)
             {

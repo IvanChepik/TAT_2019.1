@@ -12,13 +12,13 @@ namespace DEV_3
     /// </summary>
     public class Company
     {
-        const int CountOfJuniors = 15;
-        const int CountOfMiddles = 10;
-        const int CountOfSeniors = 7;
-        const int CountOfLeads = 5;
-        private readonly List<Employee> allEmployees = new List<Employee>();
+        private const int CountOfJuniors = 15;
+        private const int CountOfMiddles = 10;
+        private const int CountOfSeniors = 7;
+        private const int CountOfLeads = 5;
+        private readonly List<Employee> _allEmployees = new List<Employee>();
         public IOptimize Optimization { private get; set; }
-        public decimal Сondition { get; private set; }
+        public decimal Сondition { get; }
         public int JuniorsOnProject { get; set; }
         public int MiddlesOnProject { get; set; }
         public int SeniorsOnProject { get; set; }
@@ -49,7 +49,7 @@ namespace DEV_3
         {
             try
             { 
-                Optimization.Optimize(Сondition, allEmployees);
+                Optimization.Optimize(Сondition, _allEmployees);
                 CountQuantityEmp();
             }
             catch (WorkCannotBeExecutedException e)
@@ -68,33 +68,33 @@ namespace DEV_3
         /// </summary>
         private void InitEmployeesByJuniors()
         {
-            for(int i = 0; i < CountOfJuniors; i++)
+            for(var i = 0; i < CountOfJuniors; i++)
             {
-                allEmployees.Add(new Junior());
+                _allEmployees.Add(new Junior());
             }
         }
 
         private void InitEmployeesByMiddles()
         {
-            for (int i = 0; i < CountOfMiddles; i++)
+            for (var i = 0; i < CountOfMiddles; i++)
             {
-                allEmployees.Add(new Middle());
+                _allEmployees.Add(new Middle());
             }
         }
 
         private void InitEmployeesBySeniors()
         {
-            for (int i = 0; i < CountOfSeniors; i++)
+            for (var i = 0; i < CountOfSeniors; i++)
             {
-                allEmployees.Add(new Senior());
+                _allEmployees.Add(new Senior());
             }
         }
 
         private void InitEmployeesByLeads()
         {
-            for (int i = 0; i < CountOfLeads; i++)
+            for (var i = 0; i < CountOfLeads; i++)
             {
-                allEmployees.Add(new Lead());
+                _allEmployees.Add(new Lead());
             }
         }
 
@@ -106,7 +106,7 @@ namespace DEV_3
         private void CountQuantityEmp()
         {
             foreach (var emp in Optimization.EmployeesToWork)
-            {
+            {               
                 if (emp is Lead)
                 {
                     LeadsOnProject++;
@@ -128,11 +128,9 @@ namespace DEV_3
                 if (emp is Junior)
                 {
                     JuniorsOnProject++;
-                    continue;
                 }
 
             }
         }
-
     }
 }

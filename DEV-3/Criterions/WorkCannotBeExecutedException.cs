@@ -8,11 +8,6 @@ namespace Criterions
     /// </summary>
     public class WorkCannotBeExecutedException : ApplicationException
     {
-        public WorkCannotBeExecutedException()
-        {
-
-        }
-
         public WorkCannotBeExecutedException(string message) : base(message)
         {
 

@@ -51,19 +51,16 @@ namespace Criterions
         /// <param name="employees">list of all employees in company sorted by coef</param>
         /// <param name="sum">cost of max productivity</param>
         /// <returns>return value of productivity</returns>
-        private decimal SelectEmployeeForMaxProductivity(List<Employee> employees, decimal sum)
-        {
-            var sumProduct = 0.0m;           
+        private void SelectEmployeeForMaxProductivity(List<Employee> employees, decimal sum)
+        {         
             foreach(var emp in employees)
             {
                 if (sum - emp.Sum >= 0)
                 {
                     sum -= emp.Sum;
-                    sumProduct += emp.Productivity;
                     EmployeesToWork.Add(emp);
                 }
             }
-            return sumProduct;
         }
 
     }
