@@ -26,6 +26,11 @@ namespace Materials.Materials
             }
         }
 
+        public int Lentg
+        {
+            get => Labs.Count;
+        }
+
         public List<Seminar> Seminars { get; }
 
         public List<Lab> Labs { get; }
@@ -66,12 +71,12 @@ namespace Materials.Materials
             var cloneLecture = new Lecture(TextLecture, Presentation.Url, MaterialData, Presentation.PresentationFormat, Discipline);
             foreach (var lab in Labs)
             {
-                cloneLecture.AddLabs(new Lab(lab.MaterialData, this));
+                new Lab(lab.MaterialData, cloneLecture);
             }
 
             foreach (var seminar in Seminars)
             {
-                cloneLecture.AddSeminars(new Seminar(seminar.MaterialData));
+                new Seminar(seminar.MaterialData, cloneLecture);
             }
 
             return cloneLecture;

@@ -7,7 +7,7 @@
     public class MaterialData
     {
         private string _information;
-        public string Guid { get; set; }
+        public string Guid { get; }
 
         public string Information
         {

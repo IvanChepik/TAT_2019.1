@@ -18,17 +18,26 @@ namespace Materials.Materials
             Lecture = lecture;
         }
 
-        public Seminar(MaterialData materialData) : base(materialData)
+        public void AddNewTask(string task)
+        {
+            _tasks.Add(task);
+        }
+
+        public void AddNewQuestion(string question, string answer)
+        {
+            _questionsAndAnswers.Add(question, answer);
+        }
+
+        public Seminar(MaterialData materialData, Lecture lecture) : base(materialData)
         {
             _tasks = new List<string>();
             _questionsAndAnswers = new Dictionary<string, string>();
-            Lecture.AddSeminars(this);
-            
+            lecture.AddSeminars(this);           
         }
 
         public object Clone()
         {
-            return new Seminar(MaterialData);
+            return new Seminar(MaterialData, Lecture);
         }
     }
 }
