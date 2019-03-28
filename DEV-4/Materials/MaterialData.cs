@@ -2,7 +2,7 @@
 {
     /// <summary>
     /// Class MaterialData
-    /// has guid and information of all entitiy
+    /// included guid and information of all entity
     /// </summary>
     public class MaterialData
     {
@@ -24,12 +24,23 @@
             }
         }
 
+        /// <summary>
+        /// Constructor MaterialData
+        /// set a information and generate new ID
+        /// </summary>
+        /// <param name="information"></param>
         public MaterialData(string information)
         {
             Guid = Guid.GetId();
             Information = information;
         }
 
+        /// <summary>
+        /// Constructor MaterialData
+        /// for Copy
+        /// </summary>
+        /// <param name="information">information about entity</param>
+        /// <param name="guid">id of entity</param>
         public MaterialData(string information, string guid)
         {
             Guid = guid;

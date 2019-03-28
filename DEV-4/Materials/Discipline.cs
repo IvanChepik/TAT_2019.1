@@ -18,6 +18,12 @@ namespace Materials
             _lectures = new List<Lecture>();
         }
 
+        /// <summary>
+        /// Method GetAllMaterials
+        /// return all materials (seminars, labs) of argument lecture.
+        /// </summary>
+        /// <param name="lecture">lecture which has necessary materials</param>
+        /// <returns>list of all materials</returns>
         private List<Material> GetAllMaterials(Lecture lecture)
         {
             var lectureMaterials = new List<Material>();

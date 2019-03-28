@@ -23,14 +23,9 @@ namespace DEV_4
                 var lab = new Lab("LabInfo", lecture);
                 var seminar = new Seminar("SeminarInfo",lecture);
                 var lecture2 = lecture.Clone() as Lecture;
-                var lab2 = lab.Clone() as Lab;
-                //Console.WriteLine(lab.MaterialData.Information);
-                //////Console.WriteLine(lab2.MaterialData.Information);
-                //lab2.MaterialData.Information = "LabInfo2";
-                //Console.WriteLine(lab.MaterialData.Information);
-                //Console.WriteLine(lab2.MaterialData.Information);
-                Console.WriteLine(lecture.Lentg);
-                Console.WriteLine(lecture2.Lentg);
+                var lab2 = lab.Clone() as Lab;               
+                Console.WriteLine(lecture.CountOfLabs);
+                Console.WriteLine(lecture2.CountOfLabs);
             }
             catch (Exception e)
             {
