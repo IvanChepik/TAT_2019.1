@@ -12,7 +12,7 @@ namespace Materials.Materials
 
         /// <summary>
         /// Constructor Lab
-        /// Create new object Lab and set a ref to corresponded lecture.
+        /// Create new object Lab and set a ref to corresponded lecture and add this to list of corresponded lecture.
         /// </summary>
         /// <param name="information">information which included in material data</param>
         /// <param name="lecture">corresponded lecture</param>
@@ -21,7 +21,6 @@ namespace Materials.Materials
             lecture.AddLabs(this);
             Lecture = lecture;
         }
-
 
         /// <summary>
         /// Constructor Lab
@@ -38,7 +37,7 @@ namespace Materials.Materials
         /// Method Clone
         /// create new object with identical parameters
         /// </summary>
-        /// <returns>new object Lab</returns>
+        /// <returns>copy of this object</returns>
         public object Clone()
         {
             return new Lab(MaterialData, Lecture);        
