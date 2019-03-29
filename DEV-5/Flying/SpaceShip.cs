@@ -10,6 +10,16 @@ namespace Flying
 
         public int Speed { get; }
 
+        public SpaceShip(Point point)
+        {
+            CurrentPoint = point;
+        }
+
+        public SpaceShip(int xCoordinate, int yCoordinate, int zCoordinate)
+        {
+            CurrentPoint = new Point(xCoordinate, yCoordinate, zCoordinate);
+        }
+
         public void FlyTo(Point newPoint)
         {
             throw new System.NotImplementedException();

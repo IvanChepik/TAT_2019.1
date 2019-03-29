@@ -1,4 +1,5 @@
-﻿using Points;
+﻿using System.Security.Policy;
+using Points;
 
 namespace Flying
 {
@@ -9,6 +10,16 @@ namespace Flying
         public Point CurrentPoint { get; }
 
         public int Speed { get; }
+
+        public Bird(Point point)
+        {
+            CurrentPoint = point;
+        }
+
+        public Bird(int xCoordinate, int yCoordinate, int zCoordinate)
+        {
+            CurrentPoint = new Point(xCoordinate, yCoordinate, zCoordinate);
+        }
 
         public void FlyTo(Point newPoint)
         {
