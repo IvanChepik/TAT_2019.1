@@ -4,11 +4,11 @@ namespace Flying
 {
     public class SpaceShip : IFlyable
     {
-        public double FlyingTime => throw new System.NotImplementedException();
+        public double FlyingTime { get; }
 
-        public Point CurrentPoint => throw new System.NotImplementedException();
+        public Point CurrentPoint { get; }
 
-        public int Speed => throw new System.NotImplementedException();
+        public int Speed { get; }
 
         public void FlyTo(Point newPoint)
         {
@@ -17,7 +17,7 @@ namespace Flying
 
         public string WhoAmI()
         {
-            throw new System.NotImplementedException();
+            return "SpaceShip";
         }
 
         public string GetFlyTime()
