@@ -43,11 +43,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="EntryPoint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Flying\Flying.csproj">
+      <Project>{ee8046ff-4ec2-486e-adec-0486316dba7a}</Project>
+      <Name>Flying</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Points\Points.csproj">
+      <Project>{710f4be8-cf6f-45e3-97f9-790c4905ac1b}</Project>
+      <Name>Points</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
