@@ -1,4 +1,5 @@
-﻿using Points;
+﻿using System;
+using Points;
 
 namespace Flying
 {
@@ -9,6 +10,8 @@ namespace Flying
         public Point CurrentPoint { get; }
 
         public int Speed { get; }
+
+        public bool Flied => throw new NotImplementedException();
 
         public SpaceShip(Point point)
         {

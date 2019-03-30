@@ -1,4 +1,4 @@
-﻿using System.Security.Policy;
+﻿using System;
 using Points;
 
 namespace Flying
@@ -9,7 +9,9 @@ namespace Flying
 
         public Point CurrentPoint { get; }
 
-        public int Speed { get; }
+        public int Speed { get; private set; }
+
+        public bool Flied => throw new NotImplementedException();
 
         public Bird(Point point)
         {
@@ -23,7 +25,8 @@ namespace Flying
 
         public void FlyTo(Point newPoint)
         {
-            throw new System.NotImplementedException();
+            Speed = new Random().Next(1, 20);
+            
         }
 
         public string GetFlyTime()
