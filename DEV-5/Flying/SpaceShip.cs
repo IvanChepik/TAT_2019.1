@@ -7,9 +7,11 @@ namespace Flying
     {
         public Point CurrentPoint { get; }
 
+        public event Action<object, FlyingEventArgs> Flied;
+
         public double Speed { get; private set; }
 
-        public bool Flied { get; private set; }
+        public bool InFly { get; private set; }
 
         public Point TargetPoint { get; private set; }
 
@@ -23,11 +25,17 @@ namespace Flying
             CurrentPoint = new Point(xCoordinate, yCoordinate, zCoordinate);
         }
 
-        public void FlyTo(Point newPoint)
+        private void OnFlied()
         {
+            Flied?.Invoke(this, new FlyingEventArgs(WhoAmI() + " fly to new point"));
+        }
+
+        public void FlyTo(Point newPoint)
+        {            
             Speed = 2.88 * Math.Pow(10, 7);
             TargetPoint = newPoint;
-            Flied = true;
+            InFly = true;
+            OnFlied();
         }
 
         public string WhoAmI()
@@ -37,7 +45,8 @@ namespace Flying
 
         public double GetFlyTime()
         {
-            return CurrentPoint.GetAbsoluteDistanceToPoint(TargetPoint) / Speed;
+            return InFly ? CurrentPoint.GetAbsoluteDistanceToPoint(TargetPoint) / Speed
+                : throw new ObjectIDontFlyException("SpaceShip doesn't in flight");
         }
     }
 }

@@ -7,9 +7,11 @@ namespace Flying
     {
         public Point CurrentPoint { get; }
 
+        public event Action<object, FlyingEventArgs> Flied;
+
         public double Speed { get; private set; }
 
-        public bool Flied { get; private set; }
+        public bool InFly { get; private set; }
 
         public Point TargetPoint { get; private set; }
 
@@ -23,16 +25,23 @@ namespace Flying
             CurrentPoint = new Point(xCoordinate, yCoordinate, zCoordinate);
         }
 
+        private void OnFlied()
+        {
+            Flied?.Invoke(this, new FlyingEventArgs(WhoAmI() + " fly to new point"));
+        }
+
         public void FlyTo(Point newPoint)
         {
             Speed = new Random().Next(1, 20);
             TargetPoint = newPoint;
-            Flied = true;
+            InFly = true;
+            OnFlied();
         }
 
         public double GetFlyTime()
         {
-            return CurrentPoint.GetAbsoluteDistanceToPoint(TargetPoint) / Speed;
+            return InFly ? CurrentPoint.GetAbsoluteDistanceToPoint(TargetPoint) / Speed
+                : throw new ObjectIDontFlyException("Bird doesn't in flight");
         }
 
         public string WhoAmI()

@@ -1,10 +1,13 @@
-﻿using Points;
+﻿using System;
+using Points;
 
 namespace Flying
 {
     public class Plane : IFlyable
     {
-        public double TempOfAcceleration { get; private set; } 
+        public double TempOfAcceleration { get; private set; }
+
+        public event Action<object, FlyingEventArgs> Flied;
 
         public double Acceleration { get; private set; }
 
@@ -12,7 +15,7 @@ namespace Flying
 
         public double Speed { get; private set; }
 
-        public bool Flied { get; private set; }
+        public bool InFly { get; private set; }
 
         public Point TargetPoint { get; private set; }
 
@@ -26,16 +29,25 @@ namespace Flying
             CurrentPoint = new Point(xCoordinate, yCoordinate, zCoordinate);
         }
 
+        private void OnFlied()
+        {
+            Flied?.Invoke(this, new FlyingEventArgs(WhoAmI() + " fly to new point"));
+        }
+
         public void FlyTo(Point newPoint)
         {
             TargetPoint = newPoint;
             Speed = 200;
-            Flied = true;
+            TempOfAcceleration = 10;
+            Acceleration = 10;
+            InFly = true;
+            OnFlied();
         }
 
         public double GetFlyTime()
         {
-           return CurrentPoint.GetAbsoluteDistanceToPoint(TargetPoint) / (GetSpeedAtTargetPoint() + Speed);
+            return InFly ? CurrentPoint.GetAbsoluteDistanceToPoint(TargetPoint) / (GetSpeedAtTargetPoint() + Speed)
+                 : throw new ObjectIDontFlyException("Plane doesn't in flight");
         }
 
         private double GetSpeedAtTargetPoint()

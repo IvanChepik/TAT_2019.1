@@ -1,14 +1,17 @@
-﻿using  Points;
+﻿using System;
+using  Points;
 
 namespace Flying
 {
     public interface IFlyable
     {
-        bool Flied { get; }
+        bool InFly { get; }
 
         Point TargetPoint { get; }
 
         Point CurrentPoint { get; }
+
+        event Action<object, FlyingEventArgs> Flied;
 
         double Speed { get; }
 
