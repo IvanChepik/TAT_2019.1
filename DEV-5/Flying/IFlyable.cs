@@ -1,5 +1,4 @@
-﻿using System;
-using  Points;
+﻿using  Points;
 
 namespace Flying
 {
@@ -7,16 +6,16 @@ namespace Flying
     {
         bool Flied { get; }
 
-        double FlyingTime { get; } 
+        Point TargetPoint { get; }
 
         Point CurrentPoint { get; }
 
-        int Speed { get; }
+        double Speed { get; }
 
         void FlyTo(Point newPoint);
 
         string WhoAmI();
 
-        string GetFlyTime();
+        double GetFlyTime();
     }
 }

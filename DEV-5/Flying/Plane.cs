@@ -1,17 +1,20 @@
-﻿using System;
-using Points;
+﻿using Points;
 
 namespace Flying
 {
     public class Plane : IFlyable
     {
-        public double FlyingTime { get; }
+        public double TempOfAcceleration { get; private set; } 
+
+        public double Acceleration { get; private set; }
 
         public Point CurrentPoint { get; }
 
-        public int Speed { get; }
+        public double Speed { get; private set; }
 
-        public bool Flied => throw new NotImplementedException();
+        public bool Flied { get; private set; }
+
+        public Point TargetPoint { get; private set; }
 
         public Plane(Point point)
         {
@@ -25,12 +28,19 @@ namespace Flying
 
         public void FlyTo(Point newPoint)
         {
-            throw new System.NotImplementedException();
+            TargetPoint = newPoint;
+            Speed = 200;
+            Flied = true;
         }
 
-        public string GetFlyTime()
+        public double GetFlyTime()
         {
-            throw new System.NotImplementedException();
+           return CurrentPoint.GetAbsoluteDistanceToPoint(TargetPoint) / (GetSpeedAtTargetPoint() + Speed);
+        }
+
+        private double GetSpeedAtTargetPoint()
+        {
+            return (CurrentPoint.GetAbsoluteDistanceToPoint(TargetPoint) / TempOfAcceleration) * Acceleration;
         }
 
         public string WhoAmI()

@@ -5,13 +5,13 @@ namespace Flying
 {
     public class SpaceShip : IFlyable
     {
-        public double FlyingTime { get; }
-
         public Point CurrentPoint { get; }
 
-        public int Speed { get; }
+        public double Speed { get; private set; }
 
-        public bool Flied => throw new NotImplementedException();
+        public bool Flied { get; private set; }
+
+        public Point TargetPoint { get; private set; }
 
         public SpaceShip(Point point)
         {
@@ -25,7 +25,9 @@ namespace Flying
 
         public void FlyTo(Point newPoint)
         {
-            throw new System.NotImplementedException();
+            Speed = 2.88 * Math.Pow(10, 7);
+            TargetPoint = newPoint;
+            Flied = true;
         }
 
         public string WhoAmI()
@@ -33,9 +35,9 @@ namespace Flying
             return "SpaceShip";
         }
 
-        public string GetFlyTime()
+        public double GetFlyTime()
         {
-            throw new System.NotImplementedException();
+            return CurrentPoint.GetAbsoluteDistanceToPoint(TargetPoint) / Speed;
         }
     }
 }
