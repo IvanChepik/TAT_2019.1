@@ -3,17 +3,13 @@ using  Points;
 
 namespace Flying
 {
+    /// <summary>
+    /// Interface IFlyable
+    /// included common methods for flying object.
+    /// </summary>
     public interface IFlyable
     {
-        bool InFly { get; }
-
-        Point TargetPoint { get; }
-
-        Point CurrentPoint { get; }
-
         event Action<object, FlyingEventArgs> Flied;
-
-        double Speed { get; }
 
         void FlyTo(Point newPoint);
 
