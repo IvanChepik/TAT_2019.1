@@ -55,7 +55,7 @@
     <Compile Include="ICommand.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XMLCarParser.cs" />
+    <Compile Include="XmlCarParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

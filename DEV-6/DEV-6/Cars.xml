@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<cars>
+  <car>
+    <brand>Audi</brand>
+    <model>A4</model>
+    <number>10</number>
+    <price>15000</price>
+  </car>
+  <car>
+    <brand>Ford</brand>
+    <model>Fiesta</model>
+    <number>15</number>
+    <price>3000</price>
+  </car>
+  <car>
+    <brand>Ford</brand>
+    <model>Focus</model>
+    <number>5</number>
+    <price>5000</price>
+  </car>
+  <car>
+    <brand>Lexus</brand>
+    <model>RX</model>
+    <number>2</number>
+    <price>10000</price>
+  </car>
+</cars>
