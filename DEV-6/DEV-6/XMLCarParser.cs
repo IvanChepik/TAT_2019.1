@@ -39,7 +39,6 @@ namespace DEV_6
                 _listCars.Add(GetCar(xmlNode));
             }
 
-
             return _listCars;
         }
 

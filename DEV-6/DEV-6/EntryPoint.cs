@@ -15,10 +15,25 @@ namespace DEV_6
         /// <param name="args"></param>
         public static void Main(string[] args)
         {
-            var carsFile = new XmlCarParser();
-            var carsList = carsFile.GetCarsFromDocument(args[0]);
-            var menu = new Menu(new CarCatalog(carsList));
-            menu.Show();
+            try
+            {
+                var carsFile = new XmlCarParser();
+                var carsList = carsFile.GetCarsFromDocument(args[0]);
+                var menu = new Menu(new CarCatalog(carsList));
+                menu.Show();
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (NoTypeCarException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }

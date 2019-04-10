@@ -19,6 +19,7 @@ namespace DEV_6
         /// set a fields for our class.
         /// </summary>
         /// <param name="carCatalog">list of cars</param>
+        /// <param name="brand">brand of car</param>
         public AveragePriceType(CarCatalog carCatalog, string brand)
         {
             _brand = brand;
@@ -39,7 +40,7 @@ namespace DEV_6
         /// Method OnRequested
         /// calls method event.
         /// </summary>
-        /// <param name="count">count of types</param>
+        /// <param name="averagePrice">count of types</param>
         private void OnRequested(double averagePrice)
         {
             Requested?.Invoke(this, averagePrice.ToString());

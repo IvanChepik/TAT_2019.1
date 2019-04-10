@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace DEV_6
@@ -42,9 +41,8 @@ namespace DEV_6
             
             if (!_carsList.Select(e => e.Brand).Contains(brand))
             {
-                throw new ArgumentException($"Catalog doesn't contain {brand}");
+                throw new NoTypeCarException("Catalog doesn't contains this type");    
             }
-
             return _carsList.Where(e => e.Brand == brand).Select(e => e.Price).Average();
                  
         }

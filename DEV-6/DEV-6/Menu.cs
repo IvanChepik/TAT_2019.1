@@ -45,35 +45,41 @@ namespace DEV_6
                 var inputString = Console.ReadLine()?.Split(' ');
                 command = GetCommand(inputString);
 
-                switch (command)
+                try
                 {
-                    case Commands.AveragePriceAll: 
-                        var averagePriceAllCommand = new AveragePriceAll(_carCatalog);
-                        averagePriceAllCommand.Requested += _printer.Print;
-                        averagePriceAllCommand.Execute();
-                        break;
-                    case Commands.AveragePriceType:
-                        var averagePriceTypeCommand = new AveragePriceType(_carCatalog, inputString[1]);
-                        averagePriceTypeCommand.Requested += _printer.Print;
-                        averagePriceTypeCommand.Execute();
-                        break;
-                    case Commands.CountAll:
-                        var countAllCommand = new CountAll(_carCatalog);
-                        countAllCommand.Requested += _printer.Print;
-                        countAllCommand.Execute();
-                        break;
-                    case Commands.CountTypes:
-                        var countTypes = new CountTypes(_carCatalog);
-                        countTypes.Requested += _printer.Print;
-                        countTypes.Execute();
-                        break;
-                    case Commands.Exit:
-                        _alive = false;
-                        break;
-                    case Commands.NoCommands:
-                        _printer.Print(this,"Wrong command!!!");
-                        break;
-                    
+                    switch (command)
+                    {
+                        case Commands.AveragePriceAll:
+                            var averagePriceAllCommand = new AveragePriceAll(_carCatalog);
+                            averagePriceAllCommand.Requested += _printer.Print;
+                            averagePriceAllCommand.Execute();
+                            break;
+                        case Commands.AveragePriceType:
+                            var averagePriceTypeCommand = new AveragePriceType(_carCatalog, inputString[1]);
+                            averagePriceTypeCommand.Requested += _printer.Print;
+                            averagePriceTypeCommand.Execute();
+                            break;
+                        case Commands.CountAll:
+                            var countAllCommand = new CountAll(_carCatalog);
+                            countAllCommand.Requested += _printer.Print;
+                            countAllCommand.Execute();
+                            break;
+                        case Commands.CountTypes:
+                            var countTypes = new CountTypes(_carCatalog);
+                            countTypes.Requested += _printer.Print;
+                            countTypes.Execute();
+                            break;
+                        case Commands.Exit:
+                            _alive = false;
+                            break;
+                        case Commands.NoCommands:
+                            _printer.Print(this, "Wrong command!!!");
+                            break;
+                    }
+                }
+                catch (NoTypeCarException e)
+                {
+                    _printer.Print(this,e.Message);
                 }
             }
         }

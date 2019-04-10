@@ -8,7 +8,6 @@ namespace DEV_6
     /// </summary>
     public class Car
     {
-
         public string Brand { get;   }
 
         public string Model { get;  }
