@@ -43,8 +43,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="AveragePriceAll.cs" />
+    <Compile Include="AveragePriceType.cs" />
+    <Compile Include="Car.cs" />
+    <Compile Include="CarCatalog.cs" />
+    <Compile Include="Commands.cs" />
+    <Compile Include="CountAll.cs" />
+    <Compile Include="CountTypes.cs" />
+    <Compile Include="EntryPoint.cs" />
+    <Compile Include="Exit.cs" />
+    <Compile Include="ICommand.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XMLCarParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
