@@ -6,7 +6,7 @@ namespace DEV_6
 {
     public class CarCatalog
     {
-        private List<Car> _carsList;
+        private readonly List<Car> _carsList;
 
         public CarCatalog(List<Car> cars)
         {
@@ -24,7 +24,17 @@ namespace DEV_6
             {
                 throw new ArgumentException($"Catalog doesn't contain {brand}");
             }
-            return _carsList.Where(i => i.Brand == brand).Select(i => i.Price).Average();
+            return _carsList.Where(e => e.Brand == brand).Select(e => e.Price).Average();
+        }
+
+        public int CountTypes()
+        {
+            return _carsList.GroupBy(e => e.Brand).Count();
+        }
+
+        public int CountCars()
+        {
+            return _carsList.Select(i => i.Amount).Sum();
         }
     }
 }
