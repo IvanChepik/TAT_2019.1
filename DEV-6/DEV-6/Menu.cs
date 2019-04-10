@@ -23,6 +23,7 @@ namespace DEV_6
                               "5.exit\n");
 
             Commands command;
+
             ICommand executedCommand = null;
 
             while (_alive)
@@ -33,10 +34,10 @@ namespace DEV_6
                 switch (command)
                 {
                     case Commands.AveragePriceAll: 
-                        executedCommand = new AveragePriceAll();
+                        executedCommand = new AveragePriceAll(_carCatalog);
                         break;
                     case Commands.AveragePriceType:
-                        executedCommand = new AveragePriceType();
+                        executedCommand = new AveragePriceType(_carCatalog, inputString[1]);
                         break;
                     case Commands.CountAll:
                         executedCommand = new CountAll();

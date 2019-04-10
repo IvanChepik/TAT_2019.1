@@ -1,10 +1,20 @@
-﻿namespace DEV_6
+﻿using System;
+
+namespace DEV_6
 {
     public class AveragePriceAll : ICommand
     {
+        private readonly CarCatalog _carCatalog;
+
+        public AveragePriceAll(CarCatalog carCatalog)
+        {
+            _carCatalog = carCatalog;
+        }
+
         public void Execute()
         {
-            throw new System.NotImplementedException();
+            var averagePrice = _carCatalog.GetAveragePrice();
+            Console.WriteLine(averagePrice);
         }
     }
 }
