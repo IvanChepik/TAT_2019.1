@@ -6,14 +6,14 @@ namespace DEV_6
     {
         public static void Main(string[] args)
         {
-            var s = new XmlCarParser();
+            var carsFile = new XmlCarParser();
 
-            var sas = s.GetGarFromDocument("Cars.xml");
+            var carsList = carsFile.GetGarFromDocument("Cars.xml");
 
-            foreach (var ers in sas)
-            {
-                Console.WriteLine(ers.Brand);
-            }
+            var menu = new Menu(new CarCatalog(carsList));
+
+            menu.Show();
+
         }
     }
 }

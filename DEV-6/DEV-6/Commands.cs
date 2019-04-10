@@ -6,6 +6,7 @@
         AveragePriceType,
         CountAll,
         CountTypes,
+        NoCommands,
         Exit
     }
 }

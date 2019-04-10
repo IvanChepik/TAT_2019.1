@@ -51,7 +51,6 @@
     <Compile Include="CountAll.cs" />
     <Compile Include="CountTypes.cs" />
     <Compile Include="EntryPoint.cs" />
-    <Compile Include="Exit.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
