@@ -12,7 +12,7 @@ namespace DEV_6
 
         private Printer _printer;
 
-        private bool _alive = true;
+        private bool _executed;
 
         /// <summary>
         /// Constructor Menu
@@ -36,11 +36,11 @@ namespace DEV_6
                               "2.count_all_car\n" +
                               "3.average_price_car\n" +
                               "4.average_price_car type\n" +
-                              "5.exit\n");
+                              "5.execute\n");
 
             Commands command;
 
-            while (_alive)
+            while (!_executed)
             {
                 var inputString = Console.ReadLine()?.Split(' ');
                 command = GetCommand(inputString);
@@ -69,8 +69,8 @@ namespace DEV_6
                             countTypes.Requested += _printer.Print;
                             countTypes.Execute();
                             break;
-                        case Commands.Exit:
-                            _alive = false;
+                        case Commands.Execute:
+                            _executed = true;
                             break;
                         case Commands.NoCommands:
                             _printer.Print(this, "Wrong command!!!");
@@ -108,9 +108,9 @@ namespace DEV_6
             {
                 return Commands.AveragePriceAll;
             }
-            else if (str[0].ToLower().Equals("exit"))
+            else if (str[0].ToLower().Equals("execute"))
             {
-                return Commands.Exit;
+                return Commands.Execute;
             }
             else
             {

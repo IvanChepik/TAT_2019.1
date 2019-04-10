@@ -11,6 +11,6 @@
         CountAll,
         CountTypes,
         NoCommands,
-        Exit
+        Execute
     }
 }
