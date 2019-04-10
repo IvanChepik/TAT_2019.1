@@ -40,10 +40,10 @@ namespace DEV_6
                         executedCommand = new AveragePriceType(_carCatalog, inputString[1]);
                         break;
                     case Commands.CountAll:
-                        executedCommand = new CountAll();
+                        executedCommand = new CountAll(_carCatalog);
                         break;
                     case Commands.CountTypes:
-                        executedCommand = new CountTypes();
+                        executedCommand = new CountTypes(_carCatalog);
                         break;
                     case Commands.Exit:
                         _alive = false;
