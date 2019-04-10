@@ -4,16 +4,30 @@ using System.Xml;
 
 namespace DEV_6
 {
+    /// <summary>
+    /// Class XmlCarParser
+    /// Parse data of our Xml File to ListCar.
+    /// </summary>
     public class XmlCarParser
     {
         private readonly List<Car> _listCars;
 
+        /// <summary>
+        /// Constructor XmlParser
+        /// create new List object.
+        /// </summary>
         public XmlCarParser()
         {
             _listCars = new List<Car>();
         }
 
-        public List<Car> GetGarFromDocument(string path)
+        /// <summary>
+        /// Method GetCarsFromDocument
+        /// get all cars from xml file 
+        /// </summary>
+        /// <param name="path">path to xml file</param>
+        /// <returns>List of cars from xml file</returns>
+        public List<Car> GetCarsFromDocument(string path)
         {
             _listCars.Clear();
             var xmlDocument = new XmlDocument();
@@ -29,6 +43,12 @@ namespace DEV_6
             return _listCars;
         }
 
+        /// <summary>
+        /// Method GetCar
+        /// Create and return new car from XmlChildNodes
+        /// </summary>
+        /// <param name="xmlNode">Xml nodes which included childnodes and inner text</param>
+        /// <returns>object car from data in xml file</returns>
         private Car GetCar(XmlNode xmlNode)
         {
             var brand = string.Empty;

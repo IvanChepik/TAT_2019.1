@@ -2,17 +2,33 @@
 
 namespace DEV_6
 {
+    /// <summary>
+    /// Class Menu
+    /// create menu for our program and invoke the commands.
+    /// </summary>
     public class Menu
     {
         private CarCatalog _carCatalog;
 
+        private Printer _printer;
+
         private bool _alive = true;
 
+        /// <summary>
+        /// Constructor Menu
+        /// create printer object and set carCatalog for our application
+        /// </summary>
+        /// <param name="carCatalog"></param>
         public Menu(CarCatalog carCatalog)
         {
+            _printer = new Printer();
             _carCatalog = carCatalog;
         }
 
+        /// <summary>
+        /// Method Show
+        /// show our commands and allow to input them.
+        /// </summary>
         public void Show()
         {
             Console.WriteLine("Enter command:\n" +
@@ -24,8 +40,6 @@ namespace DEV_6
 
             Commands command;
 
-            ICommand executedCommand = null;
-
             while (_alive)
             {
                 var inputString = Console.ReadLine()?.Split(' ');
@@ -34,30 +48,42 @@ namespace DEV_6
                 switch (command)
                 {
                     case Commands.AveragePriceAll: 
-                        executedCommand = new AveragePriceAll(_carCatalog);
+                        var averagePriceAllCommand = new AveragePriceAll(_carCatalog);
+                        averagePriceAllCommand.Requested += _printer.Print;
+                        averagePriceAllCommand.Execute();
                         break;
                     case Commands.AveragePriceType:
-                        executedCommand = new AveragePriceType(_carCatalog, inputString[1]);
+                        var averagePriceTypeCommand = new AveragePriceType(_carCatalog, inputString[1]);
+                        averagePriceTypeCommand.Requested += _printer.Print;
+                        averagePriceTypeCommand.Execute();
                         break;
                     case Commands.CountAll:
-                        executedCommand = new CountAll(_carCatalog);
+                        var countAllCommand = new CountAll(_carCatalog);
+                        countAllCommand.Requested += _printer.Print;
+                        countAllCommand.Execute();
                         break;
                     case Commands.CountTypes:
-                        executedCommand = new CountTypes(_carCatalog);
+                        var countTypes = new CountTypes(_carCatalog);
+                        countTypes.Requested += _printer.Print;
+                        countTypes.Execute();
                         break;
                     case Commands.Exit:
                         _alive = false;
                         break;
                     case Commands.NoCommands:
-                        Console.WriteLine("Input wrong command!!!");
+                        _printer.Print(this,"Wrong command!!!");
                         break;
                     
                 }
-
-                executedCommand?.Execute();
             }
         }
 
+        /// <summary>
+        /// Method GetCommand
+        /// choose the returning enum by inputed string.
+        /// </summary>
+        /// <param name="str">string which was inputed by user</param>
+        /// <returns>Enum of available сommands</returns>
         private Commands GetCommand(string[] str)
         {
             if (str[0].ToLower().Equals("count_all_car"))
