@@ -8,14 +8,14 @@ namespace DEV_6
     /// </summary>
     public class CountAll : ICommand
     {
-        private readonly CarCatalog _carCatalog;
+        private readonly VehiclesCatalog _carCatalog;
 
         /// <summary>
         /// Constructor CountAll
         /// set a private readonly field.
         /// </summary>
         /// <param name="carCatalog"></param>
-        public CountAll(CarCatalog carCatalog)
+        public CountAll(VehiclesCatalog carCatalog)
         {
             _carCatalog = carCatalog;
         }
@@ -28,7 +28,7 @@ namespace DEV_6
         /// </summary>
         public void Execute()
         {
-            var count = _carCatalog.CountCars();
+            var count = _carCatalog.CountVehicles();
             OnRequested(count);
         }
 

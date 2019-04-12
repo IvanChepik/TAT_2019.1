@@ -8,14 +8,14 @@ namespace DEV_6
     /// </summary>
     public class AveragePriceAll : ICommand
     {
-        private readonly CarCatalog _carCatalog;
+        private readonly VehiclesCatalog _carCatalog;
 
         /// <summary>
         /// Constructor AveragePriceAll
         /// set a fields for our class.
         /// </summary>
         /// <param name="carCatalog">list of cars</param>
-        public AveragePriceAll(CarCatalog carCatalog)
+        public AveragePriceAll(VehiclesCatalog carCatalog)
         {
             _carCatalog = carCatalog;
         }

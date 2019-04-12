@@ -8,14 +8,14 @@ namespace DEV_6
     /// </summary>
     public class CountTypes : ICommand
     {
-        private readonly CarCatalog _carCatalog;
+        private readonly VehiclesCatalog _carCatalog;
 
         /// <summary>
         /// Constructor CountTypes
         /// set a private readonly field of our class.
         /// </summary>
         /// <param name="carCatalog"></param>
-        public CountTypes(CarCatalog carCatalog)
+        public CountTypes(VehiclesCatalog carCatalog)
         {
             _carCatalog = carCatalog;
         }
