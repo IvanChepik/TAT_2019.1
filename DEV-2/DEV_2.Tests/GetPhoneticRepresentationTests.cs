@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using DEV_2;
 
 namespace DEV_2.Tests
 {

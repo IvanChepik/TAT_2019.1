@@ -30,6 +30,16 @@ namespace DEV_2
                 throw new NotRussianWordException("Text russian word");
             }
 
+            if (receivedString == null)
+            {
+                throw new ArgumentNullException("Your string is null");
+            }
+
+            if (receivedString.Length == 0)
+            {
+                throw new ArgumentException("Your string is empty");
+            }
+
             this._word = new StringBuilder(receivedString);           
         }
         
