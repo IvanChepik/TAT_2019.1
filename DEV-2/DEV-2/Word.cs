@@ -25,9 +25,9 @@ namespace DEV_2
         /// <param name="receivedString"></param>
         public Word(string receivedString)
         {
-            if(!CheckOnRussian(receivedString))
+            if(!this.CheckOnRussian(receivedString))
             {
-                throw new ArgumentException("Text russian word");
+                throw new NotRussianWordException("Text russian word");
             }
 
             this._word = new StringBuilder(receivedString);           
@@ -35,7 +35,8 @@ namespace DEV_2
         
         private bool CheckOnRussian(string receivedString)
         {
-            return receivedString.All(e => this.Letters.Consonats.Contains(e) || this.Letters.Vowels.Contains(e));
+            return receivedString.All(e => this.Letters.Consonats.Contains(e) || this.Letters.Vowels.Contains(e) || this.Letters.Signs.Contains(e)
+                                           || e == '+');
         }
 
         public int CountOfVowels

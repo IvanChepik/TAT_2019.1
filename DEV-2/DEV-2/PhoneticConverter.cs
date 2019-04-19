@@ -29,7 +29,7 @@ namespace DEV_2
 
             if (!CheckAccent())
             {
-                throw new ArgumentException("Your _word has wrong accent format");
+                throw new AccentException("Your _word has wrong accent format");
             }
 
             ReplaceOSymbolsWithouAccent();
