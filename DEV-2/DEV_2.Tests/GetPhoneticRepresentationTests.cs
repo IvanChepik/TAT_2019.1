@@ -4,9 +4,19 @@ using DEV_2;
 
 namespace DEV_2.Tests
 {
+    /// <summary>
+    /// Class GetPhoneticRepresentationTests
+    /// Tests GetPhoneticRepresentationTests method 
+    /// </summary>
     [TestFixture]
     public class GetPhoneticRepresentationTests
     {
+        /// <summary>
+        /// Method GetPhoneticRepresentationTest
+        /// positive tests for GetPhoneticRepresentationTest
+        /// </summary>
+        /// <param name="word"></param>
+        /// <param name="expectedPhoneme"></param>
         [TestCase("зуб", "зуп")]
         [TestCase("вью+га", "в'й'уга")]
         [TestCase("ёлка","й'олка")]
@@ -21,6 +31,11 @@ namespace DEV_2.Tests
             Assert.AreEqual(expectedPhoneme, result);
         }
 
+        /// <summary>
+        /// Method GetPhoneticAccentRepresentationTest
+        /// Negative tests for wrong accents
+        /// </summary>
+        /// <param name="word"></param>
         [TestCase("зуб+")]
         [TestCase("+моё")]
         [TestCase("белый")]
@@ -37,7 +52,12 @@ namespace DEV_2.Tests
                 () => phoneticConverter.GetPhoneticRepresentation(word)
             );
         }
-       
+
+        /// <summary>
+        /// Method GetPhoneticArgumentRepresentationTest
+        /// tests for empty
+        /// </summary>
+        /// <param name="word"></param>
         [TestCase("")]
         public void GetPhoneticArgumentRepresentationTest(string word)
         {
@@ -48,6 +68,11 @@ namespace DEV_2.Tests
             );
         }
 
+        /// <summary>
+        /// Method GetPhoneticArgumentRepresentationTest
+        /// tests for null
+        /// </summary>
+        /// <param name="word"></param>
         [TestCase(null)]
         public void GetPhoneticArgumentNullRepresentationTest(string word)
         {
@@ -58,6 +83,11 @@ namespace DEV_2.Tests
             );
         }
 
+        /// <summary>
+        /// Method GetPhoneticRussianWordRepresentationTest
+        /// test for non Russian Word
+        /// </summary>
+        /// <param name="word"></param>
         [TestCase("begi+n")]
         [TestCase("маshi+na")]
         [TestCase("мол......око+")]
