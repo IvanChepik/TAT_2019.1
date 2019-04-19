@@ -50,6 +50,7 @@
     <Compile Include="CreateWordTests.cs" />
     <Compile Include="GetPhoneticRepresentationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WordOperationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
