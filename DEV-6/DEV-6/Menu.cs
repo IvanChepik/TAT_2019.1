@@ -93,11 +93,11 @@ namespace DEV_6
                 }
                 catch (NoTypeCarException e)
                 {
-                    _printer.Print(this, e.Message);
+                    this._printer.Print(this, e.Message);
                 }
                 catch (Exception)
                 {
-                    _printer.Print(this, "Problem with XML file");
+                    this._printer.Print(this, "Problem with XML file");
                 }
             }
         }
@@ -106,27 +106,27 @@ namespace DEV_6
         /// Method GetCommand
         /// choose the returning enum by inputed string.
         /// </summary>
-        /// <param name="str">string which was inputed by user</param>
+        /// <param name="selectedCommand">string which was inputed by user</param>
         /// <returns>Enum of available сommands</returns>
-        private Commands GetCommand(string[] str)
+        private Commands GetCommand(string[] selectedCommand)
         {
-            if (str[0].ToLower().Equals("count_all"))
+            if (selectedCommand[0].ToLower().Equals("count_all"))
             {
                 return Commands.CountAll;
             }
-            else if (str[0].ToLower().Equals("count_types"))
+            else if (selectedCommand[0].ToLower().Equals("count_types"))
             {
                 return Commands.CountTypes;
             }
-            else if (str[0].ToLower().Equals("average_price") && str.Length == 3)
+            else if (selectedCommand[0].ToLower().Equals("average_price") && selectedCommand.Length == 3)
             {
                 return Commands.AveragePriceType;
             }
-            else if (str[0].ToLower().Equals("average_price"))
+            else if (selectedCommand[0].ToLower().Equals("average_price"))
             {
                 return Commands.AveragePriceAll;
             }
-            else if (str[0].ToLower().Equals("execute"))
+            else if (selectedCommand[0].ToLower().Equals("execute"))
             {
                 return Commands.Execute;
             }
@@ -163,18 +163,15 @@ namespace DEV_6
         /// <returns>enum of catalog</returns>
         private VehicleTypes GetVehicleType(string selectedType)
         {
-            if (selectedType.ToLower().Equals("car"))
+            try
             {
-                return VehicleTypes.Car;
+                selectedType = char.ToUpper(selectedType[0]) + selectedType.Substring(1).ToLower();
+                return (VehicleTypes)(Enum.Parse(typeof(VehicleTypes), selectedType));
             }
-            else if (selectedType.ToLower().Equals("truck"))
+            catch 
             {
-                return VehicleTypes.Truck;
-            }
-            else
-            {
-                throw new ArgumentException("Wrong type of vehicle");
-            }
+                throw new NoTypeCarException("Wrong type of vehicle");
+            }           
         }
     }
 }

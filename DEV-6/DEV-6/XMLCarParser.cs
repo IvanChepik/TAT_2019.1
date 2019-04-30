@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -38,7 +39,17 @@ namespace DEV_6
         /// <returns>List of cars from xml file</returns>
         public List<Vehicle> GetVehiclesFromDocument(string path)
         {
-            var xmlDocument = XDocument.Load(path);
+            XDocument xmlDocument;
+
+            try
+            {
+               xmlDocument = XDocument.Load(path);
+            }
+            catch
+            {
+                throw new XmlException("XML file is not exist");
+            }
+            
             var listVehicles = xmlDocument.Element("vehicles")
                 ?.Elements("vehicle").Select(e => new Vehicle(
                     e.Element("brand")?.Value ?? throw new XmlException("Wrong xml file"), 
