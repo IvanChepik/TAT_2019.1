@@ -25,9 +25,9 @@ namespace DEV_6
         /// <param name="truckCatalog">Catalog of our trucks</param>
         public Menu(VehiclesCatalog carCatalog, VehiclesCatalog truckCatalog)
         {
-            _printer = new Printer();
-            _truckCatalog = truckCatalog;
-            _carCatalog = carCatalog;
+            this._printer = new Printer();
+            this._truckCatalog = truckCatalog;
+            this._carCatalog = carCatalog;
         }
 
         /// <summary>
@@ -46,41 +46,41 @@ namespace DEV_6
             Commands command;
             VehiclesCatalog choosenCatalog = null;
             var commandsList = new List<ICommand>();
-            while (!_executed)
+            while (!this._executed)
             {
                 var inputString = Console.ReadLine()?.Split(' ');
-                command = GetCommand(inputString);
+                command = this.GetCommand(inputString);
                 try
                 {
                     if ((command != Commands.NoCommands) && command != Commands.Execute)
                     {
-                        choosenCatalog = GetCatalogType(inputString[1]);
+                        choosenCatalog = this.GetCatalogType(inputString[1]);
                     }
 
                     switch (command)
                     {
                         case Commands.AveragePriceAll:
                             var averagePriceAllCommand = new AveragePriceAll(choosenCatalog);
-                            averagePriceAllCommand.Requested += _printer.Print;
+                            averagePriceAllCommand.Requested += this._printer.Print;
                             commandsList.Add(averagePriceAllCommand);
                             break;
                         case Commands.AveragePriceType:
                             var averagePriceTypeCommand = new AveragePriceType(choosenCatalog, inputString[2]);
-                            averagePriceTypeCommand.Requested += _printer.Print;
+                            averagePriceTypeCommand.Requested += this._printer.Print;
                             commandsList.Add(averagePriceTypeCommand);
                             break;
                         case Commands.CountAll:
                             var countAllCommand = new CountAll(choosenCatalog);
-                            countAllCommand.Requested += _printer.Print;
+                            countAllCommand.Requested += this._printer.Print;
                             commandsList.Add(countAllCommand);
                             break;
                         case Commands.CountTypes:
                             var countTypesCommand = new CountTypes(choosenCatalog);
-                            countTypesCommand.Requested += _printer.Print;
+                            countTypesCommand.Requested += this._printer.Print;
                             commandsList.Add(countTypesCommand);
                             break;
                         case Commands.Execute:
-                            _executed = true;
+                            this._executed = true;
                             foreach (var commandExecuting in commandsList)
                             {
                                 commandExecuting.Execute();
@@ -147,9 +147,9 @@ namespace DEV_6
             switch (this.GetVehicleType(selectedType))
             {
                 case VehicleTypes.Truck:
-                    return _truckCatalog;
+                    return this._truckCatalog;
                 case VehicleTypes.Car:
-                    return _carCatalog;
+                    return this._carCatalog;
                 default:
                     throw new NoTypeCarException("Wrong type of vehicle");
             }

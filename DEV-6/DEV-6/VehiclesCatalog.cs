@@ -18,7 +18,7 @@ namespace DEV_6
         /// <param name="vehicles"></param>
         public VehiclesCatalog(List<Vehicle> vehicles)
         {
-            _vehiclesList = vehicles;
+            this._vehiclesList = vehicles;
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace DEV_6
         /// <returns>average price of all cars.</returns>
         public double GetAveragePrice()
         {
-            return _vehiclesList.Select(e => e.Price).Average();
+            return this._vehiclesList.Select(e => e.Price).Average();
         }
 
         /// <summary>
@@ -39,11 +39,11 @@ namespace DEV_6
         public double GetAveragePriceType(string brand)
         {
             
-            if (!_vehiclesList.Select(e => e.Brand).Contains(brand))
+            if (!this._vehiclesList.Select(e => e.Brand).Contains(brand))
             {
                 throw new NoTypeCarException("Catalog doesn't contains this type");    
             }
-            return _vehiclesList.Where(e => e.Brand == brand).Select(e => e.Price).Average();
+            return this._vehiclesList.Where(e => e.Brand == brand).Select(e => e.Price).Average();
                  
         }
 
@@ -54,7 +54,7 @@ namespace DEV_6
         /// <returns>number of all types</returns>
         public int CountTypes()
         {
-            return _vehiclesList.GroupBy(e => e.Brand).Count();
+            return this._vehiclesList.GroupBy(e => e.Brand).Count();
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace DEV_6
         /// <returns>number of all cars</returns>
         public int CountVehicles()
         {
-            return _vehiclesList.Select(i => i.Amount).Sum(e => e);
+            return this._vehiclesList.Select(i => i.Amount).Sum(e => e);
         }
     }
 }

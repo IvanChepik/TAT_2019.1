@@ -17,7 +17,7 @@ namespace DEV_6
         /// <param name="carCatalog"></param>
         public CountTypes(VehiclesCatalog carCatalog)
         {
-            _carCatalog = carCatalog;
+            this._carCatalog = carCatalog;
         }
 
         public event EventHandler<string> Requested;
@@ -28,8 +28,8 @@ namespace DEV_6
         /// </summary>
         public void Execute()
         {
-            var count = _carCatalog.CountTypes();
-            OnRequested(count);
+            var count = this._carCatalog.CountTypes();
+            this.OnRequested(count);
         }
 
         /// <summary>

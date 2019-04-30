@@ -46,6 +46,7 @@ namespace DEV_6
                     int.Parse(e.Element("amount")?.Value ?? throw new XmlException("Wrong xml file")),
                     double.Parse(e.Element("price")?.Value ?? throw new XmlException("Wrong xml file"))))
                 .ToList();
+
             return listVehicles;
         }
     }

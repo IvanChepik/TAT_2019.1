@@ -17,7 +17,7 @@ namespace DEV_6
         /// <param name="carCatalog">list of cars</param>
         public AveragePriceAll(VehiclesCatalog carCatalog)
         {
-            _carCatalog = carCatalog;
+            this._carCatalog = carCatalog;
         }
 
         public event EventHandler<string> Requested;
@@ -28,8 +28,8 @@ namespace DEV_6
         /// </summary>
         public void Execute()
         {
-            var averagePrice = _carCatalog.GetAveragePrice();
-            OnRequested(averagePrice);
+            var averagePrice = this._carCatalog.GetAveragePrice();
+            this.OnRequested(averagePrice);
         }
 
         /// <summary>

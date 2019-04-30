@@ -30,15 +30,15 @@ namespace DEV_6
         /// <param name="price">price of vehicle</param>
         public Vehicle(string brand, string model, int amount, double price)
         {
-            if ((brand == string.Empty) || (model == string.Empty) || (amount < _minAmount) || (price <= _minPrice))
+            if ((brand == string.Empty) || (model == string.Empty) || (amount < this._minAmount) || (price <= this._minPrice))
             {
                 throw new ArgumentException("Wrong argument.");
             }
 
-            Brand = brand;
-            Model = model;
-            Amount = amount;
-            Price = price;
+            this.Brand = brand;
+            this.Model = model;
+            this.Amount = amount;
+            this.Price = price;
         }
     }
 }
