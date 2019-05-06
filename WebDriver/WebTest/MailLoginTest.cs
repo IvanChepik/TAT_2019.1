@@ -7,7 +7,7 @@ using Logic;
 namespace WebTest
 {
     [TestFixture]
-    public class LoginTest
+    public class MailLoginTest
     {
         private IWebDriver _driver;
 
@@ -16,7 +16,8 @@ namespace WebTest
         {
             _driver = new FirefoxDriver();
             _driver.Manage().Window.Maximize();
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(50);
+            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            _driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(10);
             _driver.Navigate().GoToUrl("https://mail.ru");
         }
 
@@ -28,11 +29,11 @@ namespace WebTest
 
         [Test]
         [TestCase("ivan.chepik@bk.ru", "Xe5t2TRj")]
-        public void Login_PositiveTest(string login, string password)
+        public void LoginPositiveTest(string login, string password)
         {
             var loginLogic = new LoginLogic(_driver);
-            loginLogic.Login(login, password);
-            Assert.True(_driver.Url.Contains("/inbox/"));
+            var result = loginLogic.Login(login, password, Emails.MailRu);
+            Assert.True(result);
         }
 
         [Test]
@@ -40,11 +41,13 @@ namespace WebTest
         [TestCase("", "")]
         [TestCase("ivan.chepik@bk.ru", "asdagdhyuge")]
         [TestCase("wete@mail.ru", "Xe5t2TRj")]
-        public void Login_NegativeTest(string login, string password)
+        public void LoginNegativeTest(string login, string password)
         {
             var loginLogic = new LoginLogic(_driver);
-            loginLogic.Login(login, password);
-            Assert.False(_driver.Url.Contains("/inbox/"));
+            Assert.Throws<NotLoginException>
+            (
+                () => loginLogic.Login(login, password, Emails.MailRu)
+            );
         }
     }
 }

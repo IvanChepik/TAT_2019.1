@@ -46,17 +46,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Emails.cs" />
+    <Compile Include="LetterException.cs" />
     <Compile Include="LoginLogic.cs" />
+    <Compile Include="NotLoginException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MailRuPages\MailRuPages.csproj">
-      <Project>{5b0b9604-425d-4a21-9d69-72af3dc0828e}</Project>
-      <Name>MailRuPages</Name>
-    </ProjectReference>
+    <Compile Include="SendLetterLogic.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Pages\Pages.csproj">
+      <Project>{d20acaf1-2d5b-4d5b-9038-6f7f6b670477}</Project>
+      <Name>Pages</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Selenium.Chrome.WebDriver.2.45\build\Selenium.Chrome.WebDriver.targets" Condition="Exists('..\packages\Selenium.Chrome.WebDriver.2.45\build\Selenium.Chrome.WebDriver.targets')" />

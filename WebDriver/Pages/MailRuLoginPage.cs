@@ -1,11 +1,10 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 
-namespace MailRuPages
+namespace Pages
 {
-    public class LoginPage 
+    public class MailRuLoginPage : BasePage, ILogining
     {
-        private IWebDriver _driver;
 
         [FindsBySequence]
         [FindsBy(How = How.XPath, Using = "//input[@class = 'o-control']")]
@@ -19,17 +18,22 @@ namespace MailRuPages
         [FindsBy(How = How.XPath, Using = "//input[@id = 'mailbox:password']")]
         private IWebElement PasswordText { get; set; }
 
-        public LoginPage(IWebDriver driver)
+        public MailRuLoginPage(IWebDriver driver) : base(driver)
         {
-            this._driver = driver;
-            PageFactory.InitElements(this._driver, this);
+            
         }
 
-        public void Login(string login, string password)
+        public bool Login(string login, string password)
         {
             LoginText.SendKeys(login);
             PasswordText.SendKeys(password);
             LoginButton.Click();
+            if (!Driver.Url.Contains("/inbox/"))
+            {
+                throw new WrongUrlException();
+            }
+
+            return true;
         }
     }
 }

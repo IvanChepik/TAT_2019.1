@@ -1,4 +1,5 @@
-﻿using MailRuPages;
+﻿using System;
+using Pages;
 using OpenQA.Selenium;
 
 namespace Logic
@@ -7,15 +8,33 @@ namespace Logic
     {
         private readonly IWebDriver _driver;
 
+        private ILogining _loginPage;
+
         public LoginLogic(IWebDriver driver)
         {
             this._driver = driver;
         }
 
-        public void Login(string login, string password)
+        public bool Login(string email, string password, Emails typeOfEmail)
         {
-            var loginPage = new LoginPage(this._driver);
-            loginPage.Login(login, password);
+            try
+            {
+                switch (typeOfEmail)
+                {
+                    case Emails.MailRu:
+                        _loginPage = new MailRuLoginPage(this._driver);
+                        break;
+                    case Emails.TutBy:
+                        _loginPage = new TutByLoginPage(this._driver);
+                        break;
+                }
+
+                return _loginPage.Login(email, password);
+            }
+            catch 
+            {
+                throw new NotLoginException();
+            }          
         }
     }
 }
