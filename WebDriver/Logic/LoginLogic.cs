@@ -1,5 +1,4 @@
-﻿using System;
-using Pages;
+﻿using Pages;
 using OpenQA.Selenium;
 
 namespace Logic

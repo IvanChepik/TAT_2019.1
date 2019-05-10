@@ -9,7 +9,7 @@ namespace WebTest
     /// </summary>
     [TestFixture]
     public class MailLoginTest : BaseTest
-    {
+    {        
         [Test]
         [TestCase("ivan.chepik@bk.ru", "Xe5t2TRj")]
         public void LoginPositiveTest(string login, string password)

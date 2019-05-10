@@ -24,9 +24,8 @@ namespace Pages
         }
 
         public bool Login(string login, string password)
-        {
-            
-            Wait.Until(x => LoginText.Displayed ? LoginText : null);
+        {         
+            WaitForElementDisplayed(LoginText, Driver);
             LoginText.Clear();
             LoginText.SendKeys(login);
             PasswordText.SendKeys(password);

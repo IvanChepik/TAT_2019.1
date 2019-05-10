@@ -43,10 +43,7 @@ namespace Pages
 
         public MailRuMainPage(IWebDriver driver) : base(driver)
         {
-            this.Wait.Until(
-                w => !Driver.FindElement(By.XPath("//div[@id = 'app-loader']")).Displayed
-                    ? Driver.FindElement(By.XPath("//div[@id = 'app-loader']"))
-                    : null);
+            WaitForElementIsNotDisplayed(Driver.FindElement(By.XPath("//div[@id = 'app-loader']")), Driver);
         }
 
         public void SendLetter(string email, string textOfLetter)

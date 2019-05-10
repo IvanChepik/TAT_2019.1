@@ -24,7 +24,7 @@ namespace Pages
         {
             LetterButton.Clear();
             LetterButton.SendKeys(newNickname);
-            Wait.Until(x => SubmitButton.Displayed ? SubmitButton : null);
+            WaitForElementDisplayed(SubmitButton, Driver);
             SubmitButton.Click();
         }
 

@@ -24,8 +24,8 @@ namespace Pages
 
         public bool SendResponse(string textLetter)
         {
-            ReplyButton.Click();           
-           Wait.Until(x => TextLetter.Displayed ? TextLetter : null);
+           ReplyButton.Click();           
+           WaitForElementDisplayed(TextLetter, Driver);
            TextLetter.Clear();
            TextLetter.SendKeys(textLetter);
            SendLetter.Click();
