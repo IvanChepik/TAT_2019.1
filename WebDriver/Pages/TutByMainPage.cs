@@ -3,6 +3,10 @@ using OpenQA.Selenium.Support.PageObjects;
 
 namespace Pages
 {
+    /// <summary>
+    /// class TutByMainPage
+    /// object of main page of tut.by
+    /// </summary>
     public class TutByMainPage : BasePage
     {
         [FindsBySequence]
@@ -22,9 +26,14 @@ namespace Pages
 
         }
 
+        /// <summary>
+        /// method CheckLetter
+        /// check letter for unread and text
+        /// </summary>
+        /// <param name="textLetter"></param>
+        /// <returns></returns>
         public bool CheckLetter(string textLetter)
         {
-
             if (!SignOfUnread.GetAttribute("class").Contains("state_toRead"))
             {
                 throw new WrongMessageException();

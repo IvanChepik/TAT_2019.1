@@ -3,7 +3,7 @@
 namespace Pages
 {
     /// <summary>
-    /// WrongMessageException class
+    /// class WrongMessageException
     /// thrown when current message is not equals to expected message
     /// </summary>
     public class WrongMessageException : ApplicationException

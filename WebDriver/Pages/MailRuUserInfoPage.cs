@@ -1,10 +1,12 @@
-﻿using System;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
-using OpenQA.Selenium.Support.UI;
 
 namespace Pages
 {
+    /// <summary>
+    /// class MailRuUserInfoPage
+    /// object of user info page of mail.ru
+    /// </summary>
     public class MailRuUserInfoPage : BasePage
     {
         [FindsBySequence]
@@ -20,6 +22,11 @@ namespace Pages
 
         }
 
+        /// <summary>
+        /// method ChangeNickname
+        /// change nickname on text in letter
+        /// </summary>
+        /// <param name="newNickname"></param>
         public void ChangeNickname(string newNickname)
         {
             LetterButton.Clear();
@@ -28,6 +35,12 @@ namespace Pages
             SubmitButton.Click();
         }
 
+        /// <summary>
+        /// method CheckChangingNickName
+        /// check for changing Nickname and thrown exception if not changing.
+        /// </summary>
+        /// <param name="newNickname"></param>
+        /// <returns></returns>
         public bool CheckChangingNickName(string newNickname)
         {
             var oldNickname = LetterButton.GetAttribute("value");

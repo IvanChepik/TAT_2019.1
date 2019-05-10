@@ -1,13 +1,10 @@
-﻿using System;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Logic;
 
 namespace WebTest
 {
     /// <summary>
-    /// MailResponseLetterTest class
+    /// class MailResponseLetterTest
     /// tests receive mail by our service.
     /// </summary>
     [TestFixture]

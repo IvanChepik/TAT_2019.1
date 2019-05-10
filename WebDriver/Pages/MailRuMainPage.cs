@@ -3,6 +3,10 @@ using OpenQA.Selenium.Support.PageObjects;
 
 namespace Pages
 {
+    /// <summary>
+    /// class MailRuMainPage
+    /// object of min page of mail.ru
+    /// </summary>
     public class MailRuMainPage : BasePage
     {
         [FindsBySequence]
@@ -41,11 +45,22 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//span[text() = 'Личные данные']")]
         private IWebElement AccountDataButton { get; set; }
 
+        /// <summary>
+        /// constructor MailRuMainPage
+        /// Wait for screen with octopus is not display
+        /// </summary>
+        /// <param name="driver"></param>
         public MailRuMainPage(IWebDriver driver) : base(driver)
         {
             WaitForElementIsNotDisplayed(Driver.FindElement(By.XPath("//div[@id = 'app-loader']")), Driver);
         }
 
+        /// <summary>
+        /// method SendLetter
+        /// send letter to email
+        /// </summary>
+        /// <param name="email">email which receive letter</param>
+        /// <param name="textOfLetter">text letter</param>
         public void SendLetter(string email, string textOfLetter)
         {
             this.LetterButton.Click();
@@ -54,11 +69,21 @@ namespace Pages
             this.SendLetterButton.Click();
         }
 
+        /// <summary>
+        /// method LogOut
+        /// Log out from service
+        /// </summary>
         public void LogOut()
         {
             LogOutButton.Click();
         }
 
+        /// <summary>
+        /// method CheckLetter
+        /// check letter for correctness
+        /// </summary>
+        /// <param name="textLetter"></param>
+        /// <returns></returns>
         public bool CheckLetter(string textLetter)
         {
             LastLetter.Click();
@@ -69,11 +94,15 @@ namespace Pages
             return true;
         }
 
-        public bool OpenUserInfo()
+        /// <summary>
+        /// method OpenUserInfo
+        /// open user info page
+        /// </summary>
+        /// <returns></returns>
+        public void OpenUserInfo()
         {
             AccountButton.Click();
             AccountDataButton.Click();
-            return true;
         }
     }
 }

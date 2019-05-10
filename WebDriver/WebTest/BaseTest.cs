@@ -6,7 +6,7 @@ using OpenQA.Selenium.Firefox;
 namespace WebTest
 {
     /// <summary>
-    /// BaseTest class
+    /// class BaseTest
     /// base class for our tests.
     /// </summary>
     public abstract class BaseTest

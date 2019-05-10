@@ -3,6 +3,10 @@ using OpenQA.Selenium.Support.PageObjects;
 
 namespace Pages
 {
+    /// <summary>
+    /// class MailRuLoginPage
+    /// object of login page of mail.ru
+    /// </summary>
     public class MailRuLoginPage : BasePage, ILogining
     {
 
@@ -23,6 +27,13 @@ namespace Pages
             
         }
 
+        /// <summary>
+        /// method Login
+        /// login into mail.ru
+        /// </summary>
+        /// <param name="login"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public bool Login(string login, string password)
         {         
             WaitForElementDisplayed(LoginText, Driver);

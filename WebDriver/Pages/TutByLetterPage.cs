@@ -3,6 +3,10 @@ using OpenQA.Selenium.Support.PageObjects;
 
 namespace Pages
 {
+    /// <summary>
+    /// class TutByLetterPage
+    /// object of letter page of tut.by
+    /// </summary>
     public class TutByLetterPage : BasePage
     {
         [FindsBySequence]
@@ -22,6 +26,12 @@ namespace Pages
 
         }
 
+        /// <summary>
+        /// method SendResponse
+        /// send response to letter from mail.ru
+        /// </summary>
+        /// <param name="textLetter"></param>
+        /// <returns></returns>
         public bool SendResponse(string textLetter)
         {
            ReplyButton.Click();           

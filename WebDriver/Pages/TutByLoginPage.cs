@@ -3,6 +3,10 @@ using OpenQA.Selenium.Support.PageObjects;
 
 namespace Pages
 {
+    /// <summary>
+    /// class TutByLoginPage
+    /// object of login page of tut.by
+    /// </summary>
     public class TutByLoginPage : BasePage, ILogining
     {
         [FindsBySequence]
@@ -22,6 +26,13 @@ namespace Pages
 
         }
 
+        /// <summary>
+        /// Method Login
+        /// login into tut.by
+        /// </summary>
+        /// <param name="login"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public bool Login(string login, string password)
         {
             LoginText.SendKeys(login);

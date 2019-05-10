@@ -4,7 +4,7 @@ using Logic;
 namespace WebTest
 {
     /// <summary>
-    /// MailSendLetterTest class
+    /// class MailSendLetterTest
     /// test sending letter from our email service.
     /// </summary>
     [TestFixture]
