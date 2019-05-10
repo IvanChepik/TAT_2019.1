@@ -31,10 +31,10 @@ namespace Logic
 
                 return _loginPage.Login(email, password);
             }
-            catch 
+            catch
             {
                 throw new NotLoginException();
-            }          
+            }
         }
     }
 }

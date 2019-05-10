@@ -49,6 +49,8 @@
   <ItemGroup>
     <Compile Include="BasePage.cs" />
     <Compile Include="ILogining.cs" />
+    <Compile Include="MailRuUserInfoPage.cs" />
+    <Compile Include="TutByLetterPage.cs" />
     <Compile Include="WrongMessageException.cs" />
     <Compile Include="MailRuLoginPage.cs" />
     <Compile Include="MailRuMainPage.cs" />

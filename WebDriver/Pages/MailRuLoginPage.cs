@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using System.Threading;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 
 namespace Pages
@@ -25,6 +26,9 @@ namespace Pages
 
         public bool Login(string login, string password)
         {
+            
+            Wait.Until(x => LoginText.Displayed ? LoginText : null);
+            LoginText.Clear();
             LoginText.SendKeys(login);
             PasswordText.SendKeys(password);
             LoginButton.Click();
