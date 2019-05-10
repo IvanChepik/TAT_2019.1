@@ -1,37 +1,20 @@
-﻿using System;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Logic;
 
 namespace WebTest
 {
+    /// <summary>
+    /// MailLoginTest
+    /// tests login on our service
+    /// </summary>
     [TestFixture]
-    public class MailLoginTest
+    public class MailLoginTest : BaseTest
     {
-        private IWebDriver _driver;
-
-        [SetUp]
-        public void SetUp()
-        {
-            _driver = new FirefoxDriver();
-            _driver.Manage().Window.Maximize();
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            _driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(10);
-            _driver.Navigate().GoToUrl("https://mail.ru");
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _driver.Quit();
-        }
-
         [Test]
         [TestCase("ivan.chepik@bk.ru", "Xe5t2TRj")]
         public void LoginPositiveTest(string login, string password)
         {
-            var loginLogic = new LoginLogic(_driver);
+            var loginLogic = new LoginLogic(Driver);
             var result = loginLogic.Login(login, password, Emails.MailRu);
             Assert.True(result);
         }
@@ -43,7 +26,7 @@ namespace WebTest
         [TestCase("wete@mail.ru", "Xe5t2TRj")]
         public void LoginNegativeTest(string login, string password)
         {
-            var loginLogic = new LoginLogic(_driver);
+            var loginLogic = new LoginLogic(Driver);
             Assert.Throws<NotLoginException>
             (
                 () => loginLogic.Login(login, password, Emails.MailRu)

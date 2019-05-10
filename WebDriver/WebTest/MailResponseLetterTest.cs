@@ -6,37 +6,28 @@ using Logic;
 
 namespace WebTest
 {
+    /// <summary>
+    /// MailResponseLetterTest class
+    /// tests receive mail by our service.
+    /// </summary>
     [TestFixture]
-    public class MailResponseLetterTest
+    public class MailResponseLetterTest : BaseTest
     {
-        private IWebDriver _driver;
-
         [SetUp]
-        public void SetUp()
+        public new void SetUp()
         {
-            _driver = new FirefoxDriver();
-            _driver.Manage().Window.Maximize();
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            _driver.Navigate().GoToUrl("https://mail.ru");
-        }
+            var loginLogic = new LoginLogic(Driver);
+            loginLogic.Login("ivan.chepik@bk.ru", "Xe5t2TRj", Emails.MailRu);
 
-        [TearDown]
-        public void TearDown()
-        {
-            _driver.Quit();
+            var sendLetterLogic = new SendLetterLogic(Driver);
+            sendLetterLogic.SendLetter("IvanChepik153821@tut.by", "Andrey Berenok");
         }
 
         [Test]
-        [TestCase("IvanChepik153821@tut.by", "1234")]
-        public void ResponseLetterPositiveTest(string email, string textOfLetter)
-        {
-            var loginLogic = new LoginLogic(_driver);
-            loginLogic.Login("ivan.chepik@bk.ru", "Xe5t2TRj", Emails.MailRu);
-
-            var sendLetterLogic = new SendLetterLogic(_driver);
-            sendLetterLogic.SendLetter(email, textOfLetter);
-
-            var responseLetterLogic = new ResponseLetterLogic(_driver);
+        [TestCase("1234")]
+        public void ResponseLetterPositiveTest(string textOfLetter)
+        {                       
+            var responseLetterLogic = new ResponseLetterLogic(Driver);
             var result = responseLetterLogic.GiveResponseLetter(textOfLetter);
             Assert.True(result);
         }

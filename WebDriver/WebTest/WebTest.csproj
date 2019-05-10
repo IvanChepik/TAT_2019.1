@@ -50,11 +50,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseTest.cs" />
     <Compile Include="MailLoginTest.cs" />
     <Compile Include="MailResponseLetterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MailSendLetterTest.cs" />
-    <Compile Include="TutLoginTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

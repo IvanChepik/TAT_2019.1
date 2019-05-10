@@ -1,16 +1,10 @@
-﻿using System;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
-using OpenQA.Selenium.Support.UI;
 
 namespace Pages
 {
-    public class MailRuMainPage
+    public class MailRuMainPage : BasePage
     {
-        private IWebDriver _driver;
-
-        private WebDriverWait _wait;
-
         [FindsBySequence]
         [FindsBy(How = How.XPath, Using = "//span[@class = 'compose-button__txt']")]
         private IWebElement LetterButton { get; set; }
@@ -47,14 +41,11 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//span[text() = 'Личные данные']")]
         private IWebElement AccountDataButton { get; set; }
 
-        public MailRuMainPage(IWebDriver driver)
+        public MailRuMainPage(IWebDriver driver) : base(driver)
         {
-            this._driver = driver;
-            PageFactory.InitElements(this._driver, this);
-            this._wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(40));
-            this._wait.Until(
-                w => !_driver.FindElement(By.XPath("//div[@id = 'app-loader']")).Displayed
-                    ? _driver.FindElement(By.XPath("//div[@id = 'app-loader']"))
+            this.Wait.Until(
+                w => !Driver.FindElement(By.XPath("//div[@id = 'app-loader']")).Displayed
+                    ? Driver.FindElement(By.XPath("//div[@id = 'app-loader']"))
                     : null);
         }
 

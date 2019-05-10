@@ -5,12 +5,8 @@ using OpenQA.Selenium.Support.UI;
 
 namespace Pages
 {
-    public class MailRuUserInfoPage
+    public class MailRuUserInfoPage : BasePage
     {
-        private IWebDriver _driver;
-
-        private WebDriverWait _wait;
-
         [FindsBySequence]
         [FindsBy(How = How.XPath, Using = "//input[@id = 'NickName']")]
         private IWebElement LetterButton { get; set; }
@@ -19,18 +15,16 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//span[text() = 'Сохранить']")]
         private IWebElement SubmitButton { get; set; }
 
-        public MailRuUserInfoPage(IWebDriver driver)
+        public MailRuUserInfoPage(IWebDriver driver) : base(driver)
         {
-            this._driver = driver;
-            PageFactory.InitElements(this._driver, this);
-            this._wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(40));
+
         }
 
         public void ChangeNickname(string newNickname)
         {
             LetterButton.Clear();
             LetterButton.SendKeys(newNickname);
-            _wait.Until(x => SubmitButton.Displayed ? SubmitButton : null);
+            Wait.Until(x => SubmitButton.Displayed ? SubmitButton : null);
             SubmitButton.Click();
         }
 
