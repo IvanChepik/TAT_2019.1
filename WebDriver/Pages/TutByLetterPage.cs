@@ -39,6 +39,7 @@ namespace Pages
            TextLetter.Clear();
            TextLetter.SendKeys(textLetter);
            SendLetter.Click();
+
            return true;
         }
     }

@@ -44,6 +44,7 @@ namespace Pages
         public bool CheckChangingNickName(string newNickname)
         {
             var oldNickname = LetterButton.GetAttribute("value");
+
             if (!oldNickname.Equals(newNickname))
             {
                 throw new WrongMessageException();               

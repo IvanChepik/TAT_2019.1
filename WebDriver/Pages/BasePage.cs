@@ -5,6 +5,10 @@ using OpenQA.Selenium.Support.UI;
 
 namespace Pages
 {
+    /// <summary>
+    /// class BasePage
+    /// define common method and fields for all pages
+    /// </summary>
     public abstract class BasePage
     {
         protected IWebDriver Driver;

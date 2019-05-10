@@ -3,6 +3,10 @@ using OpenQA.Selenium;
 
 namespace Logic
 {
+    /// <summary>
+    /// class LoginLogic
+    /// responsible for login 
+    /// </summary>
     public class LoginLogic
     {
         private readonly IWebDriver _driver;
@@ -14,6 +18,15 @@ namespace Logic
             this._driver = driver;
         }
 
+        /// <summary>
+        /// Method Login
+        /// login in mail service by email and password.
+        /// Mail service defines by enum
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <param name="typeOfEmail"></param>
+        /// <returns></returns>
         public bool Login(string email, string password, Emails typeOfEmail)
         {
             try

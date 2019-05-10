@@ -22,7 +22,9 @@ namespace WebTest
         public void SendLetterPositiveTest(string email, string textOfLetter)
         {
             var sendLetterLogic = new SendLetterLogic(Driver);
-            var result = sendLetterLogic.SendLetter(email, textOfLetter);
+            var result = sendLetterLogic.SendLetter(email, textOfLetter)
+                                        .LoginInEmailReceiver()
+                                        .CheckLetter(textOfLetter);
             Assert.True(result);
         }
 
@@ -36,6 +38,8 @@ namespace WebTest
             Assert.Throws<LetterException>
             (
                 () => sendLetterLogic.SendLetter(email, textOfLetter)
+                                            .LoginInEmailReceiver()
+                                            .CheckLetter(textOfLetter)
             );
         }
     }

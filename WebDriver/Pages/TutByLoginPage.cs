@@ -38,6 +38,7 @@ namespace Pages
             LoginText.SendKeys(login);
             PasswordText.SendKeys(password);
             SubmitPassword.Click();
+
             if (!Driver.Url.Contains("#inbox"))
             {
                 throw new WrongUrlException();

@@ -17,7 +17,9 @@ namespace WebTest
             loginLogic.Login("ivan.chepik@bk.ru", "Xe5t2TRj", Emails.MailRu);
 
             var sendLetterLogic = new SendLetterLogic(Driver);
-            sendLetterLogic.SendLetter("IvanChepik153821@tut.by", "Andrey Berenok");
+            sendLetterLogic.SendLetter("IvanChepik153821@tut.by", "Andrey Berenok")
+                            .LoginInEmailReceiver()
+                            .CheckLetter("Andrey Berenok");
         }
 
         [Test]
@@ -25,7 +27,11 @@ namespace WebTest
         public void ResponseLetterPositiveTest(string textOfLetter)
         {                       
             var responseLetterLogic = new ResponseLetterLogic(Driver);
-            var result = responseLetterLogic.GiveResponseLetter(textOfLetter);
+            var result = responseLetterLogic.SendResponseLetter(textOfLetter)
+                                            .LoginInAccountReceiver()
+                                            .CheckLetter(textOfLetter)
+                                            .ChangeNickname(textOfLetter)
+                                            .CheckResponseLetter(textOfLetter);          
             Assert.True(result);
         }
     }

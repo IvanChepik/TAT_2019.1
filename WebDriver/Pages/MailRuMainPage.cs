@@ -87,10 +87,12 @@ namespace Pages
         public bool CheckLetter(string textLetter)
         {
             LastLetter.Click();
+
             if (!TextResponseLetter.Text.Equals(textLetter))
             {
                 throw new WrongMessageException();
             }
+
             return true;
         }
 
