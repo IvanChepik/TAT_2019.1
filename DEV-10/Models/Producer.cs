@@ -1,13 +1,28 @@
-﻿namespace Models
+﻿using System.Runtime.Serialization;
+
+namespace Models
 {
-    public class Producer
+    [DataContract]
+    public class Producer : Model
     {
+        [DataMember]
         public int Id { get; set; }
 
+        [DataMember]
         public string Name { get; set; }
-                
+
+        [DataMember]
         public int IdAddress { get; set; }
 
+        [DataMember]
         public string Country { get; set; }
+
+        public Producer(int id, string name, int idAddress, string country)
+        {
+            Id = id;
+            Name = name;
+            IdAddress = idAddress;
+            Country = country;
+        }
     }
 }

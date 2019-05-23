@@ -1,11 +1,48 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
-using Newtonsoft.Json;
+using System.Runtime.Serialization.Json;
+using Models;
 
 namespace DataBases
 {
     public class Products
     {
-        public List<Products> ProductsList { get; set; }
+        public string FileName { get; set; }
+
+        private List<Product> _productsList;
+
+        public Products(string filename)
+        {
+            FileName = filename;
+            this.InitDataBase(FileName);
+        }
+
+        public List<Product> GetAll()
+        {
+            return _productsList;
+        }
+
+        public void AddNewProduct(Product product)
+        {
+            _productsList.Add(product);
+            OnAdded();
+        }
+
+        private void InitDataBase(string file)
+        {
+            var jsonFormatter = new DataContractJsonSerializer(typeof(List<Product>));
+            using (var fs = new FileStream(file, FileMode.Open))
+            {
+                _productsList = (List<Product>)jsonFormatter.ReadObject(fs);
+            }
+        }
+
+        public event Action<string> Added;
+
+        private void OnAdded()
+        {
+            Added?.Invoke(FileName);
+        }
     }
 }
