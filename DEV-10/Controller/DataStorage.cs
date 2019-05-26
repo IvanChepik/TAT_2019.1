@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using DataBases;
 using Models;
@@ -72,6 +71,31 @@ namespace Controller
         public void AddProducer(int id, string country, int idAddress, string name)
         {
             Producers.AddNewProducer(new Producer(id, name, idAddress, country));
+        }
+
+        public void ChangeAddressField<T>(T field, AddressFields typeField)
+        {
+
+        }
+
+        public void ChangeStockFields<T>(T field, StockFields typeField)
+        {
+
+        }
+
+        public void ChangeProductField<T>(T field, ProductFields typeField)
+        {
+
+        }
+
+        public void ChangeProducerField<T>(T field, ProducerFields typeField)
+        {
+
+        }
+
+        public void ChangeSupplyField<T>(T field, SupplyFields typeField)
+        {
+
         }
 
         private void Update<T>(string jsonfilename, T modelList, string xmlFilename)
