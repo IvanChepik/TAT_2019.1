@@ -3,7 +3,7 @@
 namespace Models
 {
     [DataContract]
-    public class Producer : Model
+    public class Producer
     {
         [DataMember]
         public int Id { get; set; }
@@ -16,6 +16,11 @@ namespace Models
 
         [DataMember]
         public string Country { get; set; }
+
+        public Producer()
+        {
+
+        }
 
         public Producer(int id, string name, int idAddress, string country)
         {

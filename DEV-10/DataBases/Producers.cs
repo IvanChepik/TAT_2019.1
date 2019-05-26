@@ -10,12 +10,15 @@ namespace DataBases
     {
         public string FileName { get; set; }
 
+        public string XmlFileName { get; set; }
+
         private List<Producer> _producersList;
 
-        public event Action<string> Added;
+        public event Action<string, List<Producer>, string> Added;
 
-        public Producers(string filename)
+        public Producers(string filename, string xmlFileName)
         {
+            XmlFileName = xmlFileName;
             FileName = filename;
             this.InitDataBase(FileName);
         }
@@ -26,14 +29,9 @@ namespace DataBases
             OnAdded();
         }
 
-        public List<Producer> GetAll()
-        {
-            return _producersList;
-        }
-
         private void OnAdded()
         {
-            Added?.Invoke(FileName);
+            Added?.Invoke(FileName, _producersList, XmlFileName);
         }
 
         private void InitDataBase(string file)

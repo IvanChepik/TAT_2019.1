@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using Models;
-using Newtonsoft.Json;
 
 namespace DataBases
 {
@@ -11,19 +10,17 @@ namespace DataBases
     {
         public string FileName { get; set; }
 
-        public List<Supply> _suppliesList { get; set; }
+        public string XmlFilename { get; set; }
 
-        public event Action<string> Added;
+        private List<Supply> _suppliesList;
 
-        public Supplies(string filename)
+        public event Action<string, List<Supply>, string> Added;
+
+        public Supplies(string filename, string xmlFilename)
         {
+            XmlFilename = xmlFilename;
             FileName = filename;
             this.InitDataBase(FileName);
-        }
-
-        public List<Supply> GetAll()
-        {
-            return _suppliesList;
         }
 
         public void AddNewSupply(Supply supply)
@@ -34,7 +31,7 @@ namespace DataBases
 
         private void OnAdded()
         {
-            Added?.Invoke(FileName);
+            Added?.Invoke(FileName, _suppliesList, XmlFilename);
         }
 
         private void InitDataBase(string file)

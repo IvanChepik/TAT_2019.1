@@ -19,7 +19,12 @@ namespace Models
         public int HouseNumber { get; set; }
 
         [DataMember]
-        public string Country { get; set; }       
+        public string Country { get; set; }
+
+        public Address()
+        {
+
+        }
 
         public Address(int id, string city, string street, int houseNumber, string country)
         {

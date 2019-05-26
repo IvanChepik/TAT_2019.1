@@ -10,10 +10,13 @@ namespace DataBases
     {
         public string FileName { get; set; }
 
-        private List<Product> _productsList;
+        public string XmlFileName { get; set; }
 
-        public Products(string filename)
+        private List<Product> _productsList;
+        
+        public Products(string filename, string xmlFileName)
         {
+            XmlFileName = xmlFileName;
             FileName = filename;
             this.InitDataBase(FileName);
         }
@@ -38,11 +41,11 @@ namespace DataBases
             }
         }
 
-        public event Action<string> Added;
+        public event Action<string, List<Product>, string> Added;
 
         private void OnAdded()
         {
-            Added?.Invoke(FileName);
+            Added?.Invoke(FileName, _productsList, XmlFileName);
         }
     }
 }

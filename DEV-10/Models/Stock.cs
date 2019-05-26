@@ -3,7 +3,7 @@
 namespace Models
 {
     [DataContract]
-    public class Stock : Model
+    public class Stock
     {
         [DataMember]
         public int Id { get; set; }
@@ -13,6 +13,11 @@ namespace Models
 
         [DataMember]
         public int IdAddress { get; set; }
+
+        public Stock()
+        {
+
+        }
 
         public Stock(int id, string name, int idAddress)
         {

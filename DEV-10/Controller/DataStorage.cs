@@ -36,11 +36,11 @@ namespace Controller
 
         private void InitStorage()
         {
-            Addresses = new Addresses(_files[0]);
-            Stocks = new Stocks(_files[1]);
-            Producers = new Producers(_files[2]);
-            Products = new Products(_files[3]);
-            Supplies = new Supplies(_files[4]);
+            Addresses = new Addresses(_files[0], "addresses.xml");
+            Stocks = new Stocks(_files[1], "stocks.xml");
+            Producers = new Producers(_files[2], "producers.xml");
+            Products = new Products(_files[3], "products.xml");
+            Supplies = new Supplies(_files[4], "supplies.xml");
 
             Addresses.Added += this.Update;
             Stocks.Added += this.Update;
@@ -74,20 +74,20 @@ namespace Controller
             Producers.AddNewProducer(new Producer(id, name, idAddress, country));
         }
 
-        private void Update(string filename)
+        private void Update<T>(string jsonfilename, T modelList, string xmlFilename)
         {
-            var json = JsonConvert.SerializeObject(Addresses.GetAll());
+            var json = JsonConvert.SerializeObject(modelList);
 
-            using (var fileStream = new StreamWriter(filename, false, System.Text.Encoding.Default))
+            using (var fileStream = new StreamWriter(jsonfilename, false, System.Text.Encoding.Default))
             {
                 fileStream.Write(json);
             }
 
-            var formatter = new XmlSerializer(typeof(Address));
+            var xmlSerializer = new XmlSerializer(typeof(T));
 
-            using (FileStream fs = new FileStream("address.xml", FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream(xmlFilename, FileMode.OpenOrCreate))
             {
-                formatter.Serialize(fs, Addresses.GetAll()[0]);
+                xmlSerializer.Serialize(fs, modelList);
             }
 
         }

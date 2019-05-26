@@ -10,19 +10,17 @@ namespace DataBases
     {
         public string FileName { get; set; }
 
+        public string XmlFileName { get; set; }
+
         private List<Stock> _stocksList;
 
-        public event Action<string> Added;
+        public event Action<string, List<Stock>, string> Added;
 
-        public Stocks(string fileName)
+        public Stocks(string fileName, string xmlFileName)
         {
+            XmlFileName = xmlFileName;
             FileName = fileName;
             this.InitDataBase(FileName);
-        }
-
-        public List<Stock> GetAll()
-        {
-            return _stocksList;
         }
 
         public void AddNewStock(Stock stock)
@@ -42,7 +40,7 @@ namespace DataBases
 
         private void OnAdded()
         {
-            Added?.Invoke(FileName);
+            Added?.Invoke(FileName, _stocksList, XmlFileName);
         }
     }
 }

@@ -10,16 +10,19 @@ namespace DataBases
     {
         public string FileName { get; set; }
 
-        private List<Address> _addressesList;
+        public string XmlFilename { get; set; }
+
+        private List<Address> _listAddresses;
 
         public void AddNewAddress(Address address)
         {
-            _addressesList.Add(address);
+            _listAddresses.Add(address);
             OnAdded();
         }
 
-        public Addresses(string filename)
+        public Addresses(string filename, string xmlFilename)
         {
+            XmlFilename = xmlFilename;
             FileName = filename;
             this.InitDataBase(FileName);
         }
@@ -29,20 +32,15 @@ namespace DataBases
             var jsonFormatter = new DataContractJsonSerializer(typeof(List<Address>));
             using (var fs = new FileStream(file, FileMode.Open))
             {
-                _addressesList = (List<Address>) jsonFormatter.ReadObject(fs);
+                _listAddresses = (List<Address>) jsonFormatter.ReadObject(fs);
             }
         }
 
-        public List<Address> GetAll()
-        {
-            return _addressesList;
-        }
-        
-        public event Action<string> Added;
+        public event Action<string, List<Address>, string> Added;
 
         private void OnAdded()
         {
-            Added?.Invoke(FileName);
+            Added?.Invoke(FileName, _listAddresses, XmlFilename);
         }
     }
 }

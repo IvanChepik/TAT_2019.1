@@ -3,7 +3,7 @@
 namespace Models
 {
     [DataContract]
-    public class Supply : Model
+    public class Supply
     {
         [DataMember]
         public int Id { get; set; }
@@ -13,6 +13,11 @@ namespace Models
 
         [DataMember]
         public string Date { get; set; }
+
+        public Supply()
+        {
+
+        }
 
         public Supply(int id, string description, string date)
         {
