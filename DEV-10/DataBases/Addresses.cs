@@ -6,6 +6,10 @@ using Models;
 
 namespace DataBases
 {
+    /// <summary>
+    /// Class Addresses
+    /// includes list of address
+    /// </summary>
     public class Addresses
     {
         public string FileName { get; set; }
@@ -16,31 +20,37 @@ namespace DataBases
 
         public void AddNewAddress(Address address)
         {
-            _listAddresses.Add(address);
-            OnAdded();
+            this._listAddresses.Add(address);
+            this.OnAdded();
         }
 
         public Addresses(string filename, string xmlFilename)
         {
-            XmlFilename = xmlFilename;
-            FileName = filename;
+            this.XmlFilename = xmlFilename;
+            this.FileName = filename;
             this.InitDataBase(FileName);
         }
 
         private void InitDataBase(string file)
         {
             var jsonFormatter = new DataContractJsonSerializer(typeof(List<Address>));
+
             using (var fs = new FileStream(file, FileMode.Open))
             {
-                _listAddresses = (List<Address>) jsonFormatter.ReadObject(fs);
+                this._listAddresses = (List<Address>) jsonFormatter.ReadObject(fs);
             }
         }
 
-        public event Action<string, List<Address>, string> Added;
+        public void DeleteById(int id)
+        {
+            this._listAddresses.RemoveAll(x => x.Id == id);
+        }
+
+        public event Action<string, List<Address>, string> Changed;
 
         private void OnAdded()
         {
-            Added?.Invoke(FileName, _listAddresses, XmlFilename);
+            this.Changed?.Invoke(FileName, _listAddresses, XmlFilename);
         }
     }
 }

@@ -6,6 +6,10 @@ using Models;
 
 namespace DataBases
 {
+    /// <summary>
+    /// Class Stocks
+    /// Includes list of stock
+    /// </summary>
     public class Stocks
     {
         public string FileName { get; set; }
@@ -14,33 +18,39 @@ namespace DataBases
 
         private List<Stock> _stocksList;
 
-        public event Action<string, List<Stock>, string> Added;
+        public event Action<string, List<Stock>, string> Changed;
 
         public Stocks(string fileName, string xmlFileName)
         {
-            XmlFileName = xmlFileName;
-            FileName = fileName;
+            this.XmlFileName = xmlFileName;
+            this.FileName = fileName;
             this.InitDataBase(FileName);
         }
 
         public void AddNewStock(Stock stock)
         {
-            _stocksList.Add(stock);
-            OnAdded();
+            this._stocksList.Add(stock);
+            this.OnAdded();
+        }
+
+        public void DeleteById(int id)
+        {
+            this._stocksList.RemoveAll(x => x.Id == id);
         }
 
         private void InitDataBase(string file)
         {
             var jsonFormatter = new DataContractJsonSerializer(typeof(List<Stock>));
+
             using (var fs = new FileStream(file, FileMode.Open))
             {
-                _stocksList = (List<Stock>)jsonFormatter.ReadObject(fs);
+                this._stocksList = (List<Stock>)jsonFormatter.ReadObject(fs);
             }
         }
 
         private void OnAdded()
         {
-            Added?.Invoke(FileName, _stocksList, XmlFileName);
+            this.Changed?.Invoke(FileName, _stocksList, XmlFileName);
         }
     }
 }

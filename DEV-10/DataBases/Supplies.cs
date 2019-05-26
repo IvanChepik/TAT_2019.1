@@ -6,6 +6,10 @@ using Models;
 
 namespace DataBases
 {
+    /// <summary>
+    /// Class Supplies
+    /// includes list of supplies
+    /// </summary>
     public class Supplies
     {
         public string FileName { get; set; }
@@ -14,32 +18,39 @@ namespace DataBases
 
         private List<Supply> _suppliesList;
 
-        public event Action<string, List<Supply>, string> Added;
+        public event Action<string, List<Supply>, string> Changed;
 
         public Supplies(string filename, string xmlFilename)
         {
-            XmlFilename = xmlFilename;
-            FileName = filename;
+            this.XmlFilename = xmlFilename;
+            this.FileName = filename;
             this.InitDataBase(FileName);
         }
 
         public void AddNewSupply(Supply supply)
         {
-            _suppliesList.Add(supply);
-            OnAdded();
+            this._suppliesList.Add(supply);
+            this.OnChanged();
         }
 
-        private void OnAdded()
+        public void DeleteById(int id)
         {
-            Added?.Invoke(FileName, _suppliesList, XmlFilename);
+            this._suppliesList.RemoveAll(x => x.Id == id);
+            this.OnChanged();
+        }
+
+        private void OnChanged()
+        {
+            this.Changed?.Invoke(FileName, _suppliesList, XmlFilename);
         }
 
         private void InitDataBase(string file)
         {
             var jsonFormatter = new DataContractJsonSerializer(typeof(List<Supply>));
+
             using (var fs = new FileStream(file, FileMode.Open))
             {
-                _suppliesList = (List<Supply>)jsonFormatter.ReadObject(fs);
+                this._suppliesList = (List<Supply>)jsonFormatter.ReadObject(fs);
             }
         }
     }

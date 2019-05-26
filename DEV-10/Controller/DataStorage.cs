@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using DataBases;
 using Models;
-using System.Xml.Serialization;
-using Newtonsoft.Json;
 
 namespace Controller
 {
-    public class DataStorage 
+    /// <summary>
+    /// Class DataStorage
+    /// entity for working with databases
+    /// </summary>
+    public class DataStorage
     {
         private List<string> _files = new List<string>
         {
@@ -41,11 +42,11 @@ namespace Controller
             Products = new Products(_files[3], "products.xml");
             Supplies = new Supplies(_files[4], "supplies.xml");
 
-            Addresses.Added += this.Update;
-            Stocks.Added += this.Update;
-            Producers.Added += this.Update;
-            Products.Added += this.Update;
-            Supplies.Added += this.Update;
+            Addresses.Changed += this.Update;
+            Stocks.Changed += this.Update;
+            Producers.Changed += this.Update;
+            Products.Changed += this.Update;
+            Supplies.Changed += this.Update;
         }
 
         public void AddAddress(int id, string city, string street, int houseNumber, string country)
@@ -73,47 +74,34 @@ namespace Controller
             Producers.AddNewProducer(new Producer(id, name, idAddress, country));
         }
 
-        public void ChangeAddressField<T>(T field, AddressFields typeField)
+        public void DeleteById(int id, Databases database)
         {
-
-        }
-
-        public void ChangeStockFields<T>(T field, StockFields typeField)
-        {
-
-        }
-
-        public void ChangeProductField<T>(T field, ProductFields typeField)
-        {
-
-        }
-
-        public void ChangeProducerField<T>(T field, ProducerFields typeField)
-        {
-
-        }
-
-        public void ChangeSupplyField<T>(T field, SupplyFields typeField)
-        {
-
+            switch (database)
+            {
+                case Databases.Addresses:
+                    this.Addresses.DeleteById(id);
+                    break;
+                case Databases.Producers:
+                    this.Producers.DeleteById(id);
+                    break;
+                case Databases.Products:
+                    this.Products.DeleteById(id);
+                    break;
+                case Databases.Stocks:
+                    this.Stocks.DeleteById(id);
+                    break;
+                case Databases.Supplies:
+                    this.Supplies.DeleteById(id);
+                    break;
+            }
         }
 
         private void Update<T>(string jsonfilename, T modelList, string xmlFilename)
         {
-            var json = JsonConvert.SerializeObject(modelList);
-
-            using (var fileStream = new StreamWriter(jsonfilename, false, System.Text.Encoding.Default))
-            {
-                fileStream.Write(json);
-            }
-
-            var xmlSerializer = new XmlSerializer(typeof(T));
-
-            using (FileStream fs = new FileStream(xmlFilename, FileMode.OpenOrCreate))
-            {
-                xmlSerializer.Serialize(fs, modelList);
-            }
-
+            var xmlHandler = new XmlHandler();
+            xmlHandler.WriteToXml(xmlFilename, modelList);
+            var jsonHandler = new JsonHandler();
+            jsonHandler.WriteToJson(jsonfilename, modelList);
         }
     }
 }

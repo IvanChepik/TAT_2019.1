@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Controller
+﻿namespace Controller
 {
+    /// <summary>
+    /// Class Shop
+    /// Entity for working with storage
+    /// </summary>
     public class Shop
     {
         public DataStorage DataStorage { get; set; }
@@ -10,7 +11,11 @@ namespace Controller
         public Shop()
         {
             DataStorage = new DataStorage();
-            //Console.WriteLine(DataStorage.Addresses.GetAll()[0].Country);
+        }
+
+        public void DeleteById(int id, Databases database)
+        {
+            DataStorage.DeleteById(id, database);
         }
 
         public void AddAddresses(int id, string city, string street, int houseNumber, string country)

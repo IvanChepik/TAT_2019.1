@@ -6,6 +6,10 @@ using Models;
 
 namespace DataBases
 {
+    /// <summary>
+    /// Class Products
+    /// includes products List
+    /// </summary>
     public class Products
     {
         public string FileName { get; set; }
@@ -16,36 +20,37 @@ namespace DataBases
         
         public Products(string filename, string xmlFileName)
         {
-            XmlFileName = xmlFileName;
-            FileName = filename;
+            this.XmlFileName = xmlFileName;
+            this.FileName = filename;
             this.InitDataBase(FileName);
-        }
-
-        public List<Product> GetAll()
-        {
-            return _productsList;
         }
 
         public void AddNewProduct(Product product)
         {
-            _productsList.Add(product);
-            OnAdded();
+            this._productsList.Add(product);
+            this.OnAdded();
+        }
+
+        public void DeleteById(int id)
+        {
+            this._productsList.RemoveAll(x => x.Id == id);
         }
 
         private void InitDataBase(string file)
         {
             var jsonFormatter = new DataContractJsonSerializer(typeof(List<Product>));
+
             using (var fs = new FileStream(file, FileMode.Open))
             {
-                _productsList = (List<Product>)jsonFormatter.ReadObject(fs);
+                this._productsList = (List<Product>)jsonFormatter.ReadObject(fs);
             }
         }
 
-        public event Action<string, List<Product>, string> Added;
+        public event Action<string, List<Product>, string> Changed;
 
         private void OnAdded()
         {
-            Added?.Invoke(FileName, _productsList, XmlFileName);
+            this.Changed?.Invoke(FileName, _productsList, XmlFileName);
         }
     }
 }
