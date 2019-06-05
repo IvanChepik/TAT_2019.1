@@ -1,9 +1,13 @@
-﻿namespace CurrenciesRate
+﻿using Controller;
+
+namespace CurrenciesRate
 {
-    class EntryPoint
+    public class EntryPoint
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
+            var controller = new CurrenciesController();
+            controller.WriteCurrencies("currencies.json", "Firefox");
         }
     }
 }
