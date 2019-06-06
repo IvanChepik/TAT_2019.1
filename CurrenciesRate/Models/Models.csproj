@@ -41,10 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Byn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rub.cs" />
-    <Compile Include="Usd.cs" />
+    <Compile Include="Currency.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

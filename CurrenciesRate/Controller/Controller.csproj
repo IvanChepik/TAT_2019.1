@@ -49,10 +49,20 @@
   <ItemGroup>
     <Compile Include="CurrenciesController.cs" />
     <Compile Include="DriverFactory.cs" />
+    <Compile Include="DriverType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WriterFactory.cs" />
+    <Compile Include="WriterType.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{abf91bb9-2c38-4420-b8b7-1b5f64edf9ec}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Pages\Pages.csproj">
+      <Project>{ed5a35ac-a27c-46f1-9d30-2c33086c3c08}</Project>
+      <Name>Pages</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Writers\Writers.csproj">
       <Project>{411f2a98-c6e2-41c7-9e55-5d65e7557362}</Project>
       <Name>Writers</Name>
