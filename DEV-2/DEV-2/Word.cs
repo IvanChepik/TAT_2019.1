@@ -10,70 +10,84 @@ namespace DEV_2
     /// </summary>
     public class Word
     {
-        private StringBuilder word;
-        public Letters letters = new Letters();
-        
+        private readonly StringBuilder _word;
+
+        public Letters Letters = new Letters();
+
+        public string Value => this._word.ToString();
+
+        public int Length => this.Value.Length;
+
+        /// <summary>
+        /// Constructor Word
+        /// determines word and check 
+        /// </summary>
+        /// <param name="receivedString"></param>
         public Word(string receivedString)
         {
-            if(!CheckOnRussian(receivedString))
+            if(!this.CheckOnRussian(receivedString))
             {
-                throw new ArgumentException("Text russian word");
+                throw new NotRussianWordException("Text russian word");
             }
-            word = new StringBuilder(receivedString);           
-        }
 
+            if (receivedString == null)
+            {
+                throw new ArgumentNullException("Your string is null");
+            }
+
+            if (receivedString.Length == 0)
+            {
+                throw new ArgumentException("Your string is empty");
+            }
+
+            this._word = new StringBuilder(receivedString);           
+        }
+        
         private bool CheckOnRussian(string receivedString)
         {
-            return receivedString.All(e => letters.consonats.Contains(e) || letters.vowels.Contains(e));
+            return receivedString.All(e => this.Letters.Consonats.Contains(e) || this.Letters.Vowels.Contains(e) || this.Letters.Signs.Contains(e)
+                                           || e == '+');
         }
+
         public int CountOfVowels
         {
             get
             {
-                return Value.Count(e => letters.vowels.Contains(e));
+                return this.Value.Count(e => this.Letters.Vowels.Contains(e));
             }
-        }
-        public string Value
-        {
-            get
-            {
-                return word.ToString();
-            }
-        }
-        public int Length
-        {
-            get
-            {
-                return Value.Length;
-            }
-        }
+        }      
+
         public void Replace(int indexOldSymbol, char newSymbol)
         {
-            word[indexOldSymbol] = newSymbol;
+            this._word[indexOldSymbol] = newSymbol;
         }
+
         public void Replace(string oldSymbol, string newSymbol)
         {
-            word.Replace(oldSymbol, newSymbol);
+            this._word.Replace(oldSymbol, newSymbol);
         }
+
         public void Insert(int indexOfSymbol, string newSymbols)
         {
-            word.Insert(indexOfSymbol, newSymbols);
+            this._word.Insert(indexOfSymbol, newSymbols);
         }
         
         public void Remove(char symbol)
         {
-            if (Value.Contains('+'))
+            if (this.Value.Contains('+'))
             {
-                word.Remove(Find(symbol), 1);
+                this._word.Remove(Find(symbol), 1);
             }
         }
+
         public int Find(char symbol)
         {
-            return word.ToString().IndexOf(symbol);
+            return this._word.ToString().IndexOf(symbol);
         }
+
         public bool CheckOfBeforeNoConsonat(int index)
         {
-            return index == 0 || !letters.consonats.Contains(word[index - 1]) ;
+            return index == 0 || !this.Letters.Consonats.Contains(_word[index - 1]) ;
         }
     }
 }

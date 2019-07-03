@@ -9,112 +9,127 @@ namespace DEV_2
 /// </summary>
     public class PhoneticConverter
     {
-        private Word word;
+        private Word _word;
+
         public string GetPhoneticRepresentation(string receivedString)
         {
             if (receivedString == null)
             {
                 throw new ArgumentNullException("Your string is null");
             }
+
             receivedString = receivedString.Replace(" ", string.Empty).ToLower();
+
             if (receivedString.Length == 0)
             {
                 throw new ArgumentException("Your string is empty");
-            }           
-            word = new Word(receivedString);
+            }
+
+            this._word = new Word(receivedString);
+
             if (!CheckAccent())
             {
-                throw new ArgumentException("Your word has wrong accent format");
+                throw new AccentException("Your _word has wrong accent format");
             }
+
             ReplaceOSymbolsWithouAccent();
             ReplaceSonantAndSharp();
             ReplaceVowelsOnSounds();
             ReplaceSigns();
-            return word.Value;
+
+            return this._word.Value;
         }
+
         /// <summary>
         /// method ReplaceOSymbolsWithoutAccent 
         /// replace 'o' without accent on 'a'
         /// </summary>
         private void ReplaceOSymbolsWithouAccent()
         {           
-            for (var i = 0; i < word.Length; i++)
+            for (var i = 0; i < this._word.Length; i++)
             {
-                if(word.Value[i] == 'о' && (i == word.Length - 1 || word.Value[i + 1] != '+') && word.CountOfVowels > 1)
+                if(this._word.Value[i] == 'о' && (i == this._word.Length - 1 || this._word.Value[i + 1] != '+') && this._word.CountOfVowels > 1)
                 {
-                    word.Replace(i, 'а');
+                    this._word.Replace(i, 'а');
                 }               
             }
-            word.Remove('+');
+
+            this._word.Remove('+');
         }
+
         /// <summary>
         /// method ReplaceSonantAndSharp 
         /// replace sonant and sharp on the principle of regressive assimilation
         /// </summary>
         private void ReplaceSonantAndSharp()
         {
-            if (SonantToSharpDictionary.ContainsKey(word.Value[word.Length-1]))
-            {                
-                word.Replace(word.Length - 1, SonantToSharpDictionary[word.Value[word.Length - 1]]);
-            }
-            for (var i = word.Length - 1; i > 0; i--)
+            if (_sonantToSharpDictionary.ContainsKey(this._word.Value[this._word.Length-1]))
             {
-                if (SonantToSharpDictionary.ContainsValue(word.Value[i])) 
+                this._word.Replace(this._word.Length - 1, _sonantToSharpDictionary[this._word.Value[this._word.Length - 1]]);
+            }
+
+            for (var i = this._word.Length - 1; i > 0; i--)
+            {
+                if (_sonantToSharpDictionary.ContainsValue(this._word.Value[i])) 
                 {
-                    if ((word.Value[i-1] == 'ь' || word.Value[i-1] == 'ъ') && SonantToSharpDictionary.ContainsKey(word.Value[i-2]))
-                    {   
-                        word.Replace(i - 2, SonantToSharpDictionary[word.Value[i - 2]]);
-                    }
-                    else if (SonantToSharpDictionary.ContainsKey(word.Value[i - 1]))
+                    if ((this._word.Value[i-1] == 'ь' || this._word.Value[i-1] == 'ъ') && _sonantToSharpDictionary.ContainsKey(this._word.Value[i-2]))
                     {
-                        word.Replace(i - 1, SonantToSharpDictionary[word.Value[i - 1]]);
+                        this._word.Replace(i - 2, _sonantToSharpDictionary[this._word.Value[i - 2]]);
                     }
-                }               
-                if (SharpToSonantDictionary.ContainsValue(word.Value[i]))  
+                    else if (_sonantToSharpDictionary.ContainsKey(this._word.Value[i - 1]))
+                    {
+                        this._word.Replace(i - 1, _sonantToSharpDictionary[this._word.Value[i - 1]]);
+                    }
+                }   
+                
+                if (_sharpToSonantDictionary.ContainsValue(this._word.Value[i]))  
                 {
-                    if ((word.Value[i - 1] == 'ь' || word.Value[i - 1] == 'ъ') && SharpToSonantDictionary.ContainsKey(word.Value[i - 2]))
+                    if ((this._word.Value[i - 1] == 'ь' || this._word.Value[i - 1] == 'ъ') && _sharpToSonantDictionary.ContainsKey(this._word.Value[i - 2]))
                     {
-                        word.Replace(i - 2, SharpToSonantDictionary[word.Value[i - 2]]);
+                        this._word.Replace(i - 2, _sharpToSonantDictionary[this._word.Value[i - 2]]);
                     }
-                    else if (SharpToSonantDictionary.ContainsKey(word.Value[i - 1]))
+                    else if (_sharpToSonantDictionary.ContainsKey(_word.Value[i - 1]))
                     {
-                        word.Replace(i - 1, SharpToSonantDictionary[word.Value[i - 1]]);
+                        this._word.Replace(i - 1, _sharpToSonantDictionary[this._word.Value[i - 1]]);
                     }
                 }
             }
         }
+
         /// <summary>
         /// method ReplaceVowelsOnSounds
         /// replace all vowel on phonetic depending on the preceding letter
         /// </summary>
         private void ReplaceVowelsOnSounds()
         {
-            for (var i = word.Length - 1; i >= 0; i--)
+            for (var i = _word.Length - 1; i >= 0; i--)
             {
-                if (VowelsSoundsDictionary.ContainsKey(word.Value[i]))
+                if (_vowelsSoundsDictionary.ContainsKey(_word.Value[i]))
                 {
-                    if (word.CheckOfBeforeNoConsonat(i))
+                    if (_word.CheckOfBeforeNoConsonat(i))
                     {
-                        word.Replace(i, VowelsSoundsDictionary[word.Value[i]]);
-                        word.Insert(i, "й'");
+                        this._word.Replace(i, _vowelsSoundsDictionary[this._word.Value[i]]);
+                        this._word.Insert(i, "й'");
                     }
                     else
                     {
-                        word.Replace(i, VowelsSoundsDictionary[word.Value[i]]);
-                        word.Insert(i, "\'");
+                        this._word.Replace(i, _vowelsSoundsDictionary[this._word.Value[i]]);
+                        this._word.Insert(i, "\'");
                     }
                 }       
             }
         }
+
         /// <summary>
         /// method ReplaceSigns 
         /// replaces all soft and hard signs on ' or remove it
         /// </summary>
         private void ReplaceSigns()
         {
-            word.Replace("ь", "\'");
-            word.Replace("ъ", "");
+            _word.Replace("ь", "\'");
+            _word.Replace("ъ", "");
         }
+
         /// <summary>
         /// Method CheckAccent 
         /// check wrong accent
@@ -122,36 +137,35 @@ namespace DEV_2
         /// <returns>return false is accents wrong</returns>
         private bool CheckAccent()
         {
-            var numberOfAccents = word.Value.Count(e => e == '+');
+            var numberOfAccents = this._word.Value.Count(e => e == '+');
+
             if(numberOfAccents > 1)
             {
                 return false;
             }
-            var numberOfAlwaysAccent = word.Value.Count(e => e == 'ё');
+
+            var numberOfAlwaysAccent = this._word.Value.Count(e => e == 'ё');
+
             if (numberOfAlwaysAccent > 1)
             {
                 return false;
             }
-            if(numberOfAccents == 0 && (word.CountOfVowels == 1 || word.Value.Contains('ё')))
+
+            switch (numberOfAccents)
             {
-                return true;
-            }
-            if(numberOfAccents == 1)
-            {
-                if (word.Value[0] == '+')
-                {
+                case 0 when (this._word.CountOfVowels == 1 || this._word.Value.Contains('ё')):
+                    return true;
+                case 1 when this._word.Value[0] == '+':
+                case 1 when this._word.Value.Contains('ё') && this._word.Value[this._word.Find('ё')+1] != '+':
                     return false;
-                }
-                if (word.Value.Contains('ё') && word.Value[word.Find('ё')+1] != '+')
-                {
+                case 1:
+                    return (this._word.Letters.Vowels.Contains(this._word.Value[this._word.Find('+')-1]) || this._word.Value[this._word.Find('+') - 1] == 'ё');
+                default:
                     return false;
-                }
-                return (word.letters.vowels.Contains(word.Value[word.Find('+')-1]) || word.Value[word.Find('+') - 1] == 'ё');
             }
-            return false;
         }        
 
-        private readonly Dictionary<char, char> SonantToSharpDictionary = new Dictionary<char, char>()
+        private readonly Dictionary<char, char> _sonantToSharpDictionary = new Dictionary<char, char>()
         {
             ['б'] = 'п',
             ['в'] = 'ф',
@@ -165,7 +179,7 @@ namespace DEV_2
             ['щ'] = 'щ',
         };
 
-        private readonly Dictionary<char, char> SharpToSonantDictionary = new Dictionary<char, char>()
+        private readonly Dictionary<char, char> _sharpToSonantDictionary = new Dictionary<char, char>()
         {
             ['п'] = 'б',
             ['ф'] = 'в',
@@ -175,7 +189,7 @@ namespace DEV_2
             ['к'] = 'г',
         };
 
-        private readonly Dictionary<char, char> VowelsSoundsDictionary = new Dictionary<char, char>()
+        private readonly Dictionary<char, char> _vowelsSoundsDictionary = new Dictionary<char, char>()
         {
             ['е'] = 'э',
             ['ё'] = 'о',

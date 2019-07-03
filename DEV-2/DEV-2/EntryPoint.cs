@@ -2,7 +2,7 @@
 
 namespace DEV_2
 {
-    class EntryPoint
+    public class EntryPoint
     {
         /// Class EntryPoint 
         /// Takes 1 argument(string) from the command line and 
@@ -15,10 +15,12 @@ namespace DEV_2
                 {
                     throw new ArgumentException("You haven't arguments.");
                 }
+
                 if (args.Length > 1)
                 {
                     throw new ArgumentException("You have more than 1 argument");
                 }
+
                 var phoneticConverter = new PhoneticConverter();
                 Console.WriteLine(phoneticConverter.GetPhoneticRepresentation(args[0]));
             }
