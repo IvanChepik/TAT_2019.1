@@ -8,16 +8,16 @@ namespace DEV_6
     /// </summary>
     public class CountTypes : ICommand
     {
-        private readonly CarCatalog _carCatalog;
+        private readonly VehiclesCatalog _carCatalog;
 
         /// <summary>
         /// Constructor CountTypes
         /// set a private readonly field of our class.
         /// </summary>
         /// <param name="carCatalog"></param>
-        public CountTypes(CarCatalog carCatalog)
+        public CountTypes(VehiclesCatalog carCatalog)
         {
-            _carCatalog = carCatalog;
+            this._carCatalog = carCatalog;
         }
 
         public event EventHandler<string> Requested;
@@ -28,8 +28,8 @@ namespace DEV_6
         /// </summary>
         public void Execute()
         {
-            var count = _carCatalog.CountTypes();
-            OnRequested(count);
+            var count = this._carCatalog.CountTypes();
+            this.OnRequested(count);
         }
 
         /// <summary>

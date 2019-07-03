@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Xml;
+using System.Linq;
+using System.Xml.Linq;
 
 namespace DEV_6
 {
@@ -10,15 +11,24 @@ namespace DEV_6
     /// </summary>
     public class XmlCarParser
     {
-        private readonly List<Car> _listCars;
+        private static XmlCarParser _instance;
 
         /// <summary>
-        /// Constructor XmlParser
-        /// create new List object.
+        /// Constructor XmlCarParser
+        /// private constructor for singletone
         /// </summary>
-        public XmlCarParser()
+        private XmlCarParser()
         {
-            _listCars = new List<Car>();
+        }
+
+        /// <summary>
+        /// Method GetInstance
+        /// method for get one object of this type.
+        /// </summary>
+        /// <returns>Object of this type</returns>
+        public static XmlCarParser GetInstance()
+        {
+            return _instance ?? (_instance = new XmlCarParser());
         }
 
         /// <summary>
@@ -27,61 +37,28 @@ namespace DEV_6
         /// </summary>
         /// <param name="path">path to xml file</param>
         /// <returns>List of cars from xml file</returns>
-        public List<Car> GetCarsFromDocument(string path)
+        public List<Vehicle> GetVehiclesFromDocument(string path)
         {
-            _listCars.Clear();
-            var xmlDocument = new XmlDocument();
-            xmlDocument.Load(path);
-            var xmlRoot = xmlDocument.DocumentElement;
+            XDocument xmlDocument;
 
-            foreach (XmlNode xmlNode in xmlRoot ?? throw new ArgumentException("XML file is empty"))
+            try
             {
-                _listCars.Add(GetCar(xmlNode));
+               xmlDocument = XDocument.Load(path);
             }
-
-            return _listCars;
-        }
-
-        /// <summary>
-        /// Method GetCar
-        /// Create and return new car from XmlChildNodes
-        /// </summary>
-        /// <param name="xmlNode">Xml nodes which included childnodes and inner text</param>
-        /// <returns>object car from data in xml file</returns>
-        private Car GetCar(XmlNode xmlNode)
-        {
-            var brand = string.Empty;
-            var model = string.Empty;
-            var amount = 0;
-            var price = 0.0;
-
-            foreach (XmlNode childNode in xmlNode.ChildNodes)
+            catch
             {
-                try
-                {
-                    switch (childNode.Name)
-                    {
-                        case "brand":
-                            brand = childNode.InnerText;
-                            break;
-                        case "model":
-                            model = childNode.InnerText;
-                            break;
-                        case "amount":
-                            amount = int.Parse(childNode.InnerText);
-                            break;
-                        case "price":
-                            price = double.Parse(childNode.InnerText);
-                            break;
-                    }
-                }
-                catch (ArgumentException)
-                {
-                    throw new ArgumentException("Wrong data in XML file");
-                }               
+                throw new XmlException("XML file is not exist");
             }
+            
+            var listVehicles = xmlDocument.Element("vehicles")
+                ?.Elements("vehicle").Select(e => new Vehicle(
+                    e.Element("brand")?.Value ?? throw new XmlException("Wrong xml file"), 
+                    e.Element("model")?.Value ?? throw new XmlException("Wrong xml file"),
+                    int.Parse(e.Element("amount")?.Value ?? throw new XmlException("Wrong xml file")),
+                    double.Parse(e.Element("price")?.Value ?? throw new XmlException("Wrong xml file"))))
+                .ToList();
 
-            return new Car(brand, model, amount, price);
+            return listVehicles;
         }
     }
 }

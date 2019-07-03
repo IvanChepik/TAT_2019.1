@@ -4,46 +4,46 @@ using System.Linq;
 namespace DEV_6
 {
     /// <summary>
-    /// Car Catalog
+    /// Class VehiclesCatalog
     /// Executor of command.
     /// </summary>
-    public class CarCatalog
+    public class VehiclesCatalog
     {
-        private readonly List<Car> _carsList;
+        private readonly List<Vehicle> _vehiclesList;
 
         /// <summary>
-        /// Construtor CarCatalog
+        /// Constructor VehiclesCatalog
         /// set a private readonly field.
         /// </summary>
-        /// <param name="cars"></param>
-        public CarCatalog(List<Car> cars)
+        /// <param name="vehicles"></param>
+        public VehiclesCatalog(List<Vehicle> vehicles)
         {
-            _carsList = cars;
+            this._vehiclesList = vehicles;
         }
 
         /// <summary>
         /// Method GetAveragePrice
-        /// calculate and return average price of all cars.
+        /// calculate and return average price of all vehicles.
         /// </summary>
         /// <returns>average price of all cars.</returns>
         public double GetAveragePrice()
         {
-            return _carsList.Select(e => e.Price).Average();
+            return this._vehiclesList.Select(e => e.Price).Average();
         }
 
         /// <summary>
         /// Method GetAveragePriceType
-        /// calculate and return average price of all cars of one type.
+        /// calculate and return average price of all vehicles of one type.
         /// </summary>
-        /// <returns>average price of all cars of one type.</returns>
+        /// <returns>average price of all vehicles of one type.</returns>
         public double GetAveragePriceType(string brand)
         {
             
-            if (!_carsList.Select(e => e.Brand).Contains(brand))
+            if (!this._vehiclesList.Select(e => e.Brand).Contains(brand))
             {
                 throw new NoTypeCarException("Catalog doesn't contains this type");    
             }
-            return _carsList.Where(e => e.Brand == brand).Select(e => e.Price).Average();
+            return this._vehiclesList.Where(e => e.Brand == brand).Select(e => e.Price).Average();
                  
         }
 
@@ -54,17 +54,17 @@ namespace DEV_6
         /// <returns>number of all types</returns>
         public int CountTypes()
         {
-            return _carsList.GroupBy(e => e.Brand).Count();
+            return this._vehiclesList.GroupBy(e => e.Brand).Count();
         }
 
         /// <summary>
         /// Method CountTypes
-        /// calculate and return number of all cars.
+        /// calculate and return number of all vehicles.
         /// </summary>
         /// <returns>number of all cars</returns>
-        public int CountCars()
+        public int CountVehicles()
         {
-            return _carsList.Select(i => i.Amount).Sum(e => e);
+            return this._vehiclesList.Select(i => i.Amount).Sum(e => e);
         }
     }
 }

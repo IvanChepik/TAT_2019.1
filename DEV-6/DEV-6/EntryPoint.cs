@@ -17,12 +17,17 @@ namespace DEV_6
         {
             try
             {
-                var carsFile = new XmlCarParser();
-                var carsList = carsFile.GetCarsFromDocument(args[0]);
-                var menu = new Menu(new CarCatalog(carsList));
+                var vehicleFile = XmlCarParser.GetInstance();
+                var carsList = vehicleFile.GetVehiclesFromDocument(args[0]);
+                var trucksList = vehicleFile.GetVehiclesFromDocument(args[1]);
+                var menu = new Menu(new VehiclesCatalog(carsList), new VehiclesCatalog(trucksList));
                 menu.Show();
             }
             catch (ArgumentException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (XmlException e)
             {
                 Console.WriteLine(e.Message);
             }

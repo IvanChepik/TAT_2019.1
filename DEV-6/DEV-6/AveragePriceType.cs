@@ -8,7 +8,7 @@ namespace DEV_6
     /// </summary>
     public class AveragePriceType : ICommand
     {
-        private readonly CarCatalog _carCatalog;
+        private readonly VehiclesCatalog _carCatalog;
 
         private readonly string _brand;
 
@@ -20,10 +20,10 @@ namespace DEV_6
         /// </summary>
         /// <param name="carCatalog">list of cars</param>
         /// <param name="brand">brand of car</param>
-        public AveragePriceType(CarCatalog carCatalog, string brand)
+        public AveragePriceType(VehiclesCatalog carCatalog, string brand)
         {
-            _brand = brand;
-            _carCatalog = carCatalog;
+            this._brand = brand;
+            this._carCatalog = carCatalog;
         }
 
         /// <summary>
@@ -32,8 +32,8 @@ namespace DEV_6
         /// </summary>
         public void Execute()
         {
-            var averagePrice = _carCatalog.GetAveragePriceType(_brand);
-            OnRequested(averagePrice);
+            var averagePrice = this._carCatalog.GetAveragePriceType(_brand);
+            this.OnRequested(averagePrice);
         }
 
         /// <summary>

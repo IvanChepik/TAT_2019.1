@@ -8,16 +8,16 @@ namespace DEV_6
     /// </summary>
     public class AveragePriceAll : ICommand
     {
-        private readonly CarCatalog _carCatalog;
+        private readonly VehiclesCatalog _carCatalog;
 
         /// <summary>
         /// Constructor AveragePriceAll
         /// set a fields for our class.
         /// </summary>
         /// <param name="carCatalog">list of cars</param>
-        public AveragePriceAll(CarCatalog carCatalog)
+        public AveragePriceAll(VehiclesCatalog carCatalog)
         {
-            _carCatalog = carCatalog;
+            this._carCatalog = carCatalog;
         }
 
         public event EventHandler<string> Requested;
@@ -28,8 +28,8 @@ namespace DEV_6
         /// </summary>
         public void Execute()
         {
-            var averagePrice = _carCatalog.GetAveragePrice();
-            OnRequested(averagePrice);
+            var averagePrice = this._carCatalog.GetAveragePrice();
+            this.OnRequested(averagePrice);
         }
 
         /// <summary>
